@@ -1,25 +1,31 @@
 const express = require("express");
 const app = express();
-const pool = require("./database.js");
+const cookieParser = require("cookie-parser");
 
 // middlewares
-
 app.use(express.json());
 
-app.post("/", async (req, res) => {
-  try {
-    const { text } = req.body;
+// routes
+const authRouter = require("./routes/auth.router.js");
 
-    const query = await pool.query(
-      "insert into tbl_test2 values($1) returning *",
-      [text]
-    );
+app.use("/api/auth", authRouter);
 
-    res.json(query);
-  } catch (error) {
-    console.log(error);
-  }
-});
+// superadmin creation and postgres query connection example
+
+// app.post("/admin", async (req, res) => {
+//   const { userName, userDisplayName, userEmail, userPassword, userType } =
+//     req.body;
+
+//   const hashedPassword = bcryptjs.hashSync(userPassword, 10);
+//   const query = await pool.query(
+//     "insert into users (user_name, user_display_name, user_email, user_password, user_type) values($1, $2, $3, $4, $5)",
+//     [userName, userDisplayName, userEmail, hashedPassword, userType]
+//   );
+
+//   res.json(query);
+// });
+
+// routes
 
 app.listen(3000, () => {
   console.log("Running on port 3000");
