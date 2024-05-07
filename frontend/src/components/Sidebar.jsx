@@ -101,7 +101,7 @@ const Sidebar = () => {
             </li>
           </ul>
         </section>
-        <section className="flex justify-between px-[16px] py-[32px] border-t-[1px] border-linkleap-border">
+        <section className="flex justify-between px-[16px] py-[24px] border-t-[1px] border-linkleap-border">
           <div className="flex gap-[12px] px-[8px] justify-between">
             <img src={avatar} alt="avatar" />
             <div className="text-[14px]">
