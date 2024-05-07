@@ -10,7 +10,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });

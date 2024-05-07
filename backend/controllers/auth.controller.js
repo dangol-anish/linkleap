@@ -9,7 +9,6 @@ const { errorHandler } = require("../utils/errorHandler.js");
 const login = async (req, res, next) => {
   const { userName, userPassword } = req.body;
 
-  console.log({ userName, userPassword });
   try {
     // check if the user exists
     const checkExistingUserQuery = "select * from users where user_name = $1";
@@ -67,4 +66,21 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { logout, login };
+const verifyUserToken = async (req, res, next) => {
+  try {
+    const token = req.cookies.accessToken;
+
+    if (token) {
+      res.json({
+        token,
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "User is not loggeed in",
+      });
+    }
+  } catch (error) {}
+};
+
+module.exports = { logout, login, verifyUserToken };

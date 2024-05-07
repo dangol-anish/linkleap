@@ -4,6 +4,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const errorHandler = require("./utils/errorHandler.js");
 const verifyToken = require("./utils/verifyToken.js");
+const {
+  verifyUserToken,
+} = require("../backend/controllers/auth.controller.js");
 
 // middlewares
 app.use(
@@ -21,6 +24,7 @@ const dashboardRouter = require("./routes/dashboard.route.js");
 
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", verifyToken, dashboardRouter);
+app.get("/verifyUserToken", verifyToken, verifyUserToken);
 
 // routes
 

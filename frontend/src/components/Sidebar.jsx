@@ -8,6 +8,7 @@ import logout from "../assets/logout.svg";
 import avatar from "../assets/avatar.svg";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 import { toast } from "react-toastify";
 
