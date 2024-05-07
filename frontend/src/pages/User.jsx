@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
+import Modal from "react-modal";
 
 const User = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <>
       <main className="flex min-h-screen">
@@ -15,11 +26,52 @@ const User = () => {
                 Track, manage, and forecast your customer and orders.
               </p>
             </div>
-            <button className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]">
+            <button
+              onClick={() => openModal()}
+              className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]"
+            >
               <img src={sbAdd} alt="sbAdd" />
               <span className="text-[14px] font-medium text-white">Add</span>
             </button>
           </div>
+
+          <Modal
+            className="flex flex-col justify-center items-center h-full"
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            overlayClassName={{
+              base: "fixed inset-0 bg-black bg-opacity-50 ",
+              afterOpen: "bg-black bg-opacity-50 ",
+              beforeClose: "bg-black bg-opacity-50",
+            }}
+            ariaHideApp={false}
+          >
+            <form className="bg-white h-[700px] w-[410px]  p-[24px] rounded-[12px] ">
+              <div className="flex flex-col gap-[32px]">
+                <div className="flex gap-[8px] flex-col justify-center items-center">
+                  <h3 className="text-[18px] font-semibold">Add New User</h3>
+                  <p
+                    className="text-linkleap-gray text-[14px]
+                  "
+                  >
+                    Enter the details of new users
+                  </p>
+                </div>
+                <div></div>
+              </div>
+              <div className="flex gap-[8px]">
+                <button
+                  className="w-[175px] py-[10px] px-[18px] border-[1px] rounded-[8px] text-[16px] font-medium"
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
+                <button className="w-[175px] py-[10px] px-[18px] rounded-[8px] bg-linkleap-login-btn text-[16px] font-medium text-white ">
+                  Add
+                </button>
+              </div>
+            </form>
+          </Modal>
         </section>
       </main>
     </>

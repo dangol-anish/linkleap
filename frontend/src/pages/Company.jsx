@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 
@@ -6,7 +6,6 @@ const Company = () => {
   return (
     <>
       <main className="flex min-h-screen">
-        {" "}
         <Sidebar />
         <section className="w-full">
           <div className="flex w-full my-[32px] px-[32px] justify-between">
