@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("data"));
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -31,6 +32,7 @@ const Sidebar = () => {
       const data = await response.json();
 
       if (response.ok && data.success === true) {
+        localStorage.removeItem("data");
         navigate("/login");
         toast.success("Logout successful!");
       } else {
@@ -102,8 +104,8 @@ const Sidebar = () => {
           <div className="flex gap-[12px] px-[8px] justify-between">
             <img src={avatar} alt="avatar" />
             <div className="text-[14px]">
-              <p className="font-medium">test</p>
-              <p>test</p>
+              <p className="font-medium">{userData.user_display_name}</p>
+              <p>{userData.user_email}</p>
             </div>
           </div>
 

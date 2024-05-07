@@ -38,6 +38,7 @@ const Login = () => {
       if (data.success === true) {
         toast.success("Login successful");
         navigate("/dashboard");
+        localStorage.setItem("data", JSON.stringify(data.message));
       } else {
         toast.error(data.message);
       }
