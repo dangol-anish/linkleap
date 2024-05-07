@@ -4,8 +4,10 @@ import logo from "../assets/logo.svg";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState();
 
@@ -34,6 +36,7 @@ const Login = () => {
 
       if (data.success === true) {
         toast.success("Login successful");
+        navigate("/dashboard");
       } else {
         toast.error(data.message);
       }

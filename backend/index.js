@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const errorHandler = require("./utils/errorHandler.js");
+const verifyToken = require("./utils/verifyToken.js");
 
 // middlewares
 app.use(
@@ -12,11 +13,14 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 // routes
 const authRouter = require("./routes/auth.router.js");
+const dashboardRouter = require("./routes/dashboard.route.js");
 
 app.use("/api/auth", authRouter);
+app.use("/api/dashboard", verifyToken, dashboardRouter);
 
 // routes
 
