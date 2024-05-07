@@ -3,10 +3,13 @@ dotenv.config();
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const pool = require("../model/config.js");
+const { errorHandler } = require("../utils/errorHandler.js");
 
 // controller for logging into the system
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { userName, userPassword } = req.body;
+
+  console.log({ userName, userPassword });
   try {
     // check if the user exists
     const checkExistingUserQuery = "select * from users where user_name = $1";
@@ -16,10 +19,7 @@ const login = async (req, res) => {
     ]);
 
     if (!checkExistingUserResult.rowCount > 0) {
-      res.status(401).json({
-        success: false,
-        message: "Invalid credentials!",
-      });
+      return next(errorHandler(404, "Invalid Credentials!"));
     }
 
     // check if the password matches with the existing password
@@ -28,10 +28,7 @@ const login = async (req, res) => {
     const validPassword = bcryptjs.compareSync(userPassword, storedPassword);
 
     if (!validPassword) {
-      res.status(401).json({
-        success: false,
-        message: "Invalid credentials!",
-      });
+      return next(errorHandler(404, "Invalid Credentials!"));
     }
 
     // send user details
@@ -54,10 +51,7 @@ const login = async (req, res) => {
         message: rest,
       });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error,
-    });
+    next(error);
   }
 };
 
@@ -69,10 +63,7 @@ const logout = async (req, res) => {
       message: "Successfully logged out!",
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error,
-    });
+    next(error);
   }
 };
 
