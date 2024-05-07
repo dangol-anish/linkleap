@@ -6,14 +6,17 @@ import Customer from "./pages/Customer";
 import Company from "./pages/Company";
 import User from "./pages/User";
 import Protected from "./components/Protected";
+import Public from "./components/Public";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route element={<Public />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
 
           <Route element={<Protected />}>
             <Route path="/dashboard" element={<Dashboard />} />

@@ -16,7 +16,6 @@ const Protected = () => {
           throw new Error("Failed to verify user token");
         }
 
-        console.log("User token verified successfully");
         setAuthenticated(true);
       } catch (error) {
         navigate("/login");
