@@ -13,25 +13,20 @@ const Protected = () => {
           credentials: "include",
         });
         if (!response.ok) {
-          // Handle non-successful responses, e.g., unauthorized access
           throw new Error("Failed to verify user token");
         }
-        // Proceed with successful response
+
         console.log("User token verified successfully");
         setAuthenticated(true);
       } catch (error) {
-        // Handle fetch errors
-        console.error("Error verifying user token:", error);
-        // Redirect or handle error state appropriately
-        navigate("/login"); // Redirect to login page or handle error state
+        navigate("/login");
       }
     };
 
     fetchData();
-  }, []); // Ensure fetchData is only called once, on component mount
+  }, []);
 
   if (!authenticated) {
-    // You might want to render a loading spinner or something similar here
     return null;
   }
 
