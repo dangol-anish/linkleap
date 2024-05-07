@@ -60,7 +60,7 @@ const Login = () => {
               Username
             </label>
             <input
-              className="border-[1.5px] border-linkleap-border  rounded-[8px] px-[10px] py-[14px] "
+              className="border-[1.5px] border-linkleap-border  rounded-[8px] px-[10px] py-[14px] focus:border-linkleap-login-btn focus:outline-none"
               type="text"
               placeholder="shrijandangol"
               id="userName"
@@ -72,7 +72,7 @@ const Login = () => {
               Password
             </label>
             <input
-              className="border-[1.5px] text-linkleap-text border-linkleap-border rounded-[8px] px-[10px] py-[14px] text-[12px]"
+              className="border-[1.5px] text-linkleap-text border-linkleap-border rounded-[8px] px-[10px] py-[14px] text-[12px] focus:border-linkleap-login-btn focus:outline-none"
               id="userPassword"
               placeholder="&#9679; &#9679; &#9679; &#9679; &#9679;"
               type="password"
