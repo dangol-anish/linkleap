@@ -4,17 +4,47 @@ import sbDashLogo from "../assets/sidebar/sbDashLogo.svg";
 import sbCustomerLogo from "../assets/sidebar/sbCustomerLogo.svg";
 import sbCompanyLogo from "../assets/sidebar/sbCompanyLogo.svg";
 import sbUserLogo from "../assets/sidebar/sbUserLogo.svg";
+import logout from "../assets/logout.svg";
+import avatar from "../assets/avatar.svg";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const isActive = (path) => {
     return location.pathname === path;
   };
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success === true) {
+        navigate("/login");
+        toast.success("Logout successful!");
+      } else {
+        throw new Error(data.message || "Logout failed. Please try again.");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message || "Logout failed. Please try again.");
+    }
+  };
+
   return (
     <>
-      <div className="w-[310px] border h-screen">
+      <div className="w-[310px] border border-linkleap-border h-screen flex flex-col justify-between">
         <section className="flex flex-col gap-[24px] px-[24px] py-[32px]">
           <div className="flex items-center gap-[8px] ">
             <img src={logo} className="h-[32px] w-[32px]" alt="" />
@@ -68,7 +98,22 @@ const Sidebar = () => {
             </li>
           </ul>
         </section>
-        <section></section>
+        <section className="flex justify-between px-[16px] py-[32px] border-t-[1px] border-linkleap-border">
+          <div className="flex gap-[12px] px-[8px] justify-between">
+            <img src={avatar} alt="avatar" />
+            <div className="text-[14px]">
+              <p className="font-medium">test</p>
+              <p>test</p>
+            </div>
+          </div>
+
+          <img
+            className="cursor-pointer"
+            src={logout}
+            onClick={onSubmit}
+            alt="logoutBtn"
+          />
+        </section>
       </div>
     </>
   );

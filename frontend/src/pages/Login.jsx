@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({});
   const [error, setError] = useState();
 
@@ -45,7 +46,6 @@ const Login = () => {
     }
   };
 
-  console.log(formData);
   return (
     <div className="flex h-screen justify-between">
       <div className="flex w-full md:w-[50%] justify-center items-center gap-[60px] flex-col ">
