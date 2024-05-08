@@ -2,10 +2,59 @@ import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Modal from "react-modal";
-import dropdownArrow from "../assets/dropdownArrow.svg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
+  const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [userData, setUserData] = useState({
+    userType: "Manager",
+  });
+
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      !userData.userName ||
+      !userData.userDisplayName ||
+      !userData.userEmail ||
+      !userData.userPassword ||
+      !userData.userType
+    ) {
+      toast.error("All input fields are required");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        "http://localhost:3000/api/dashboard/addNewUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+
+      if (data.success === true) {
+        toast.success("New User Created!");
+        closeModal();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Error: " + error);
+    }
+  };
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -35,6 +84,7 @@ const User = () => {
               <span className="text-[14px] font-medium text-white">Add</span>
             </button>
           </div>
+          <div>hello</div>
 
           <Modal
             className="flex flex-col justify-center items-center h-full"
@@ -47,7 +97,10 @@ const User = () => {
             }}
             ariaHideApp={false}
           >
-            <form className="bg-white h-[630px] w-[410px]  p-[24px] rounded-[12px] flex flex-col gap-[32px]">
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white h-[630px] w-[410px]  p-[24px] rounded-[12px] flex flex-col gap-[32px]"
+            >
               <div className="flex flex-col gap-[20px]">
                 <div className="flex gap-[8px] flex-col justify-center items-center">
                   <h3 className="text-[18px] font-semibold">Add New User</h3>
@@ -65,6 +118,8 @@ const User = () => {
                       className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                       type="text"
                       placeholder="Shrijan Dangol"
+                      id="userDisplayName"
+                      onChange={handleChange}
                     />
                   </label>
                   <label className="flex flex-col gap-[6px]" htmlFor="">
@@ -72,7 +127,9 @@ const User = () => {
                     <input
                       className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                       type="email"
+                      id="userEmail"
                       placeholder="shrijan@gmail.com"
+                      onChange={handleChange}
                     />
                   </label>
                   <label className="flex flex-col gap-[6px]" htmlFor="">
@@ -80,7 +137,9 @@ const User = () => {
                     <input
                       className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                       type="text"
+                      id="userName"
                       placeholder="shrijandangol"
+                      onChange={handleChange}
                     />
                   </label>
                   <label className="flex flex-col gap-[6px]" htmlFor="">
@@ -90,7 +149,8 @@ const User = () => {
                       type="password"
                       placeholder="********"
                       name=""
-                      id=""
+                      id="userPassword"
+                      onChange={handleChange}
                     />
                   </label>
                   <label className="flex flex-col gap-[6px]" htmlFor="">
@@ -98,13 +158,16 @@ const User = () => {
                     <select
                       className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] custom-select cursor-pointer"
                       name=""
-                      id=""
+                      id="userType"
+                      onChange={handleChange}
                     >
-                      <option className="" value="">
+                      <option className="" value="Manager">
                         Manager
                       </option>
-                      <option value="">Customer Support</option>
-                      <option value="">Sales Representative</option>
+                      <option value="Customer Support">Customer Support</option>
+                      <option value="Sales Representative">
+                        Sales Representative
+                      </option>
                     </select>
                   </label>
                 </div>
