@@ -7,3 +7,9 @@
   font-family: "Inter", sans-serif;
   color: #101828;
 }
+
+.custom-select {
+  background: url(./assets/dropdownArrow.svg);
+  background-position: right 5% bottom 45%;
+  background-repeat: no-repeat;
+}

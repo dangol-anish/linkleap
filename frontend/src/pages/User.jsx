@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Modal from "react-modal";
+import dropdownArrow from "../assets/dropdownArrow.svg";
 
 const User = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -46,18 +47,67 @@ const User = () => {
             }}
             ariaHideApp={false}
           >
-            <form className="bg-white h-[700px] w-[410px]  p-[24px] rounded-[12px] ">
-              <div className="flex flex-col gap-[32px]">
+            <form className="bg-white h-[630px] w-[410px]  p-[24px] rounded-[12px] flex flex-col gap-[32px]">
+              <div className="flex flex-col gap-[20px]">
                 <div className="flex gap-[8px] flex-col justify-center items-center">
                   <h3 className="text-[18px] font-semibold">Add New User</h3>
                   <p
-                    className="text-linkleap-gray text-[14px]
+                    className="text-linkleap-gray text-[14px] font-normal
                   "
                   >
                     Enter the details of new users
                   </p>
                 </div>
-                <div></div>
+                <div className="flex flex-col gap-[16px]">
+                  <label className="flex flex-col gap-[6px]" htmlFor="">
+                    <p className="text-[14px] font-medium">Name</p>
+                    <input
+                      className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                      type="text"
+                      placeholder="Shrijan Dangol"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]" htmlFor="">
+                    <p className="text-[14px] font-medium">Email</p>
+                    <input
+                      className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                      type="email"
+                      placeholder="shrijan@gmail.com"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]" htmlFor="">
+                    <p className="text-[14px] font-medium">Username</p>
+                    <input
+                      className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                      type="text"
+                      placeholder="shrijandangol"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]" htmlFor="">
+                    <p className="text-[14px] font-medium">Password</p>
+                    <input
+                      className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                      type="password"
+                      placeholder="********"
+                      name=""
+                      id=""
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]" htmlFor="">
+                    <p className="text-[14px] font-medium">Role</p>
+                    <select
+                      className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] custom-select cursor-pointer"
+                      name=""
+                      id=""
+                    >
+                      <option className="" value="">
+                        Manager
+                      </option>
+                      <option value="">Customer Support</option>
+                      <option value="">Sales Representative</option>
+                    </select>
+                  </label>
+                </div>
               </div>
               <div className="flex gap-[8px]">
                 <button
