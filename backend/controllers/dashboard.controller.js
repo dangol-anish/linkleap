@@ -5,14 +5,29 @@ const jwt = require("jsonwebtoken");
 const pool = require("../model/config.js");
 const { errorHandler } = require("../utils/errorHandler.js");
 
-// const getUserData = async (req, res, next) => {
-//   try {
-//     const getUserDataQuery =
-//       "select user_name, user_display_name, user_email, user_type from user where user ";
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+const getUserData = async (req, res, next) => {
+  const { userId } = req.body;
+  try {
+    const getUserDataQuery =
+      "select user_name, user_display_name, user_email, user_type from users where id <> $1 ";
+
+    const getUserDataResult = await pool.query(getUserDataQuery, [userId]);
+
+    if (getUserDataResult.rowCount > 0) {
+      res.status(200).json({
+        message: getUserDataResult.rows,
+        success: true,
+      });
+    } else {
+      res.status(200).json({
+        message: "No users available",
+        success: true,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
 const addUserData = async (req, res, next) => {
   const { userDisplayName, userEmail, userName, userPassword, userType } =
@@ -57,4 +72,4 @@ const addUserData = async (req, res, next) => {
   }
 };
 
-module.exports = { dashboardData, addUserData };
+module.exports = { getUserData, addUserData };

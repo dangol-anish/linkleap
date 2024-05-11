@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import editBtn from "../assets/edit.svg";
+import deleteBtn from "../assets/delete.svg";
+import Pagination from "../components/Pagination";
 
 const User = () => {
-  const navigate = useNavigate();
+  const [userList, setUserList] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [userData, setUserData] = useState({
     userType: "Manager",
   });
+
+  console.log(userList);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.id]: e.target.value });
@@ -48,11 +54,41 @@ const User = () => {
       if (data.success === true) {
         toast.success("New User Created!");
         closeModal();
+        // Update user list
+        getUserData();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error("Error: " + error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    getUserData();
+  }, [currentPage, itemsPerPage]);
+
+  const getUserData = async () => {
+    const currentUserData = JSON.parse(localStorage.getItem("data"));
+    const userId = currentUserData.id;
+    try {
+      const res = await fetch("http://localhost:3000/api/dashboard/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, currentPage, itemsPerPage }),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      setUserList(data.message);
+    } catch (error) {
+      toast.error("Error", error);
     }
   };
 
@@ -64,27 +100,98 @@ const User = () => {
     setModalIsOpen(false);
   };
 
+  // pagination
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = userList.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <main className="flex min-h-screen">
         <Sidebar />
-        <section className="w-full">
-          <div className="flex w-full my-[32px] px-[32px] justify-between">
-            <div>
-              <h2 className="text-[30px] font-medium">Users</h2>
-              <p className="text-linkleap-gray">
-                Track, manage, and forecast your customer and orders.
-              </p>
+        <section className="w-full flex flex-col justify-between">
+          <div>
+            <div className="flex w-full my-[32px] px-[32px] justify-between">
+              <div>
+                <h2 className="text-[30px] font-medium">Users</h2>
+                <p className="text-linkleap-gray">
+                  Track, manage, and forecast your customer and orders.
+                </p>
+              </div>
+              <button
+                onClick={() => openModal()}
+                className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]"
+              >
+                <img src={sbAdd} alt="sbAdd" />
+                <span className="text-[14px] font-medium text-white">Add</span>
+              </button>
             </div>
-            <button
-              onClick={() => openModal()}
-              className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]"
-            >
-              <img src={sbAdd} alt="sbAdd" />
-              <span className="text-[14px] font-medium text-white">Add</span>
-            </button>
+
+            <table className="w-full">
+              <thead className="w-full text-[12px] text-left">
+                <tr className="text-left">
+                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                    Users
+                  </th>
+                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                    Role
+                  </th>
+                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                    Username
+                  </th>
+                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                    Password
+                  </th>
+                  <th></th>
+                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems.map((user, index) => (
+                  <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      <span className="text-[14px]">
+                        {user.user_display_name}
+                      </span>
+                      <br />
+                      <span className="text-[14px] text-linkleap-gray">
+                        {user.user_email}
+                      </span>
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      {user.user_type}
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      {user.user_name}
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      *******
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
+                      <button>
+                        <img src={deleteBtn} alt="deleteBtn" />
+                      </button>
+                      <button>
+                        <img src={editBtn} alt="editBtn" />
+                      </button>{" "}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div>hello</div>
+
+          <div>
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              totalItems={userList.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </div>
 
           <Modal
             className="flex flex-col justify-center items-center h-full"

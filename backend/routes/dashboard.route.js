@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  dashboardData,
+  getUserData,
   addUserData,
 } = require("../controllers/dashboard.controller.js");
 
-router.get("/", dashboardData);
+router.post("/", getUserData);
 router.post("/addNewUser", addUserData);
 
 module.exports = router;

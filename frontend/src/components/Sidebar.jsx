@@ -35,7 +35,6 @@ const Sidebar = () => {
       if (response.ok && data.success === true) {
         localStorage.removeItem("data");
         navigate("/login");
-        toast.success("Logout successful!");
       } else {
         throw new Error(data.message || "Logout failed. Please try again.");
       }
