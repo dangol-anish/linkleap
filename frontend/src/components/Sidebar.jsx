@@ -16,6 +16,7 @@ const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("data"));
+  const userType = userData.user_type;
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -87,22 +88,23 @@ const Sidebar = () => {
                 <p className="text-[16px] font-medium">Companies</p>
               </Link>
             </li>
-            <li>
-              <Link
-                className={`flex gap-[12px] px-[8px] py-[8px] items-center cursor-pointer rounded-[6px] ${
-                  isActive("/user") && "bg-[#F9FAFB]"
-                }`}
-                to="/user"
-              >
-                <img src={sbUserLogo} alt="sbCompanyLogo" />
-                <p className="text-[16px] font-medium">Users</p>
-              </Link>
-            </li>
+            {userType === "superadmin" && (
+              <li>
+                <Link
+                  className={`flex gap-[12px] px-[8px] py-[8px] items-center cursor-pointer rounded-[6px] ${
+                    isActive("/user") && "bg-[#F9FAFB]"
+                  }`}
+                  to="/user"
+                >
+                  <img src={sbUserLogo} alt="sbCompanyLogo" />
+                  <p className="text-[16px] font-medium">Users</p>
+                </Link>
+              </li>
+            )}
           </ul>
         </section>
         <section className="flex justify-between px-[16px] py-[24px] border-t-[1px] border-linkleap-border">
           <div className="flex gap-[12px] px-[8px] justify-between">
-            <img src={avatar} alt="avatar" />
             <div className="text-[14px]">
               <p className="font-medium">{userData.user_display_name}</p>
               <p>{userData.user_email}</p>

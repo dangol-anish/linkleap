@@ -2,8 +2,6 @@ import React from "react";
 import sbAdd from "../../assets/sidebar/sbAdd.svg";
 import Modal from "react-modal";
 
-import { useState } from "react";
-
 const AddUser = ({
   handleSubmit,
   setUserData,
