@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Modal from "react-modal";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import editBtn from "../assets/edit.svg";
-import deleteBtn from "../assets/delete.svg";
 import Pagination from "../components/Pagination";
+
+import EditUser from "../components/User/EditUser";
 
 const User = () => {
   const [userList, setUserList] = useState([]);
@@ -171,12 +170,8 @@ const User = () => {
                       *******
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                      <button>
-                        <img src={deleteBtn} alt="deleteBtn" />
-                      </button>
-                      <button>
-                        <img src={editBtn} alt="editBtn" />
-                      </button>{" "}
+                      <DeleteUser userId={user.id} />
+                      <EditUser />
                     </td>
                   </tr>
                 ))}
