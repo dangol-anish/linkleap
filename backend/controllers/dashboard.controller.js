@@ -9,7 +9,7 @@ const getUserData = async (req, res, next) => {
   const { userId } = req.body;
   try {
     const getUserDataQuery =
-      "select user_name, user_display_name, user_email, user_type from users where id <> $1 ";
+      "select id, user_name, user_display_name, user_email, user_type from users where id <> $1 ";
 
     const getUserDataResult = await pool.query(getUserDataQuery, [userId]);
 
@@ -72,4 +72,27 @@ const addUserData = async (req, res, next) => {
   }
 };
 
-module.exports = { getUserData, addUserData };
+const deleteUserData = async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+    const deleteUserQuery = "delete from users where id = $1";
+    const deleteUserResult = await pool.query(deleteUserQuery, [userId]);
+
+    if (deleteUserResult.rowCount > 0) {
+      res.status(200).json({
+        success: true,
+        message: "User successfully deleted!",
+      });
+    } else {
+      res.status(200).json({
+        success: false,
+        message: "Failed to delete user data!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getUserData, addUserData, deleteUserData };
