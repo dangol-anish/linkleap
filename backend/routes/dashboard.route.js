@@ -13,6 +13,6 @@ router.post("/", getUserData);
 router.post("/addNewUser", addUserData);
 router.delete("/deleteUser/:userId", deleteUserData);
 router.post("/getCurrentUserData/:userId", getCurrentUserData);
-router.put("/updateUserData/:userId", updateUserData);
+router.post("/updateUserData/:userId", updateUserData);
 
 module.exports = router;

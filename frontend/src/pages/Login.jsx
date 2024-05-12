@@ -2,8 +2,7 @@ import React from "react";
 import loginBanner from "../assets/loginBanner.jpeg";
 import logo from "../assets/logo.svg";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -88,7 +87,6 @@ const Login = () => {
             value="Login"
           />
         </form>
-        <ToastContainer />
       </div>
       <img
         className="h-full w-[50%] object-cover hidden md:block"

@@ -1,5 +1,6 @@
 import React from "react";
 import deleteBtn from "../../assets/delete.svg";
+import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 const deleteUser = ({ userId, getUserData }) => {
@@ -20,7 +21,6 @@ const deleteUser = ({ userId, getUserData }) => {
 
       if (data.success === true) {
         toast.success("User has been deleted!");
-
         getUserData();
       } else {
         toast.error(data.message);

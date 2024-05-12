@@ -3,7 +3,7 @@ import editBtn from "../../assets/edit.svg";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 
-const EditUser = ({ userId }) => {
+const EditUser = ({ userId, getUserData }) => {
   const [currentUserData, setCurrentUserData] = useState({
     userPassword: "",
   });
@@ -14,8 +14,7 @@ const EditUser = ({ userId }) => {
     setModalIsOpen(true);
   };
 
-  const closeModal = (e) => {
-    e.preventDefault();
+  const closeModal = () => {
     setModalIsOpen(false);
   };
 
@@ -55,11 +54,12 @@ const EditUser = ({ userId }) => {
   }, []);
 
   const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
       const res = await fetch(
         `http://localhost:3000/api/dashboard/updateUserData/${userId}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -71,9 +71,10 @@ const EditUser = ({ userId }) => {
       const data = await res.json();
 
       if (data.success === true) {
-        toast.success("User Successfully Edited!");
         closeModal();
+
         getUserData();
+        toast.success("User edited!");
       } else {
         toast.error(data.message);
       }
@@ -189,11 +190,8 @@ const EditUser = ({ userId }) => {
             >
               Cancel
             </button>
-            <button
-              onClick={handleUpdate}
-              className="w-[175px] py-[10px] px-[18px] rounded-[8px] bg-linkleap-login-btn text-[16px] font-medium text-white "
-            >
-              Add
+            <button className="w-[175px] py-[10px] px-[18px] rounded-[8px] bg-linkleap-login-btn text-[16px] font-medium text-white ">
+              Update
             </button>
           </div>
         </form>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import sbAdd from "../../assets/sidebar/sbAdd.svg";
+
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 
@@ -45,9 +46,9 @@ const AddUser = ({ getUserData }) => {
       const data = await res.json();
 
       if (data.success === true) {
-        toast.success("New User Created!");
         closeModal();
-        // Update user list
+
+        toast.success("New User Created!");
         getUserData();
       } else {
         toast.error(data.message);
