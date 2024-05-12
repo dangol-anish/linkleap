@@ -1,17 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import sbAdd from "../../assets/sidebar/sbAdd.svg";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 
-const AddUser = ({
-  handleSubmit,
-  setUserData,
-  userData,
-  closeModal,
-  setModalIsOpen,
-  modalIsOpen,
-}) => {
+const AddUser = ({ getUserData }) => {
+  const [userData, setUserData] = useState({
+    userType: "Manager",
+  });
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
     setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      !userData.userName ||
+      !userData.userDisplayName ||
+      !userData.userEmail ||
+      !userData.userPassword ||
+      !userData.userType
+    ) {
+      toast.error("All input fields are required");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        "http://localhost:3000/api/dashboard/addNewUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+
+      if (data.success === true) {
+        toast.success("New User Created!");
+        closeModal();
+        // Update user list
+        getUserData();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Error: " + error);
+    }
   };
 
   const handleChange = (e) => {
@@ -29,6 +72,7 @@ const AddUser = ({
       </button>
 
       <Modal
+        id="addUserModal"
         className="flex flex-col justify-center items-center h-full"
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 
 const deleteUser = ({ userId, getUserData }) => {
   const handleUserDelete = async () => {
-    console.log(userId);
     try {
       const res = await fetch(
         `http://localhost:3000/api/dashboard/deleteUser/${userId}`,

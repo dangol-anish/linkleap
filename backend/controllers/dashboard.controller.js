@@ -9,7 +9,7 @@ const getUserData = async (req, res, next) => {
   const { userId } = req.body;
   try {
     const getUserDataQuery =
-      "select id, user_name, user_display_name, user_email, user_type from users where id <> $1 ";
+      "select id, user_name, user_display_name, user_email, user_type from users where id <> $1 order by id ";
 
     const getUserDataResult = await pool.query(getUserDataQuery, [userId]);
 
@@ -21,6 +21,40 @@ const getUserData = async (req, res, next) => {
     } else {
       res.status(200).json({
         message: "No users available",
+        success: true,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getCurrentUserData = async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const getCurrentUserDataQuery =
+      "select id, user_name, user_display_name, user_email, user_type from users where id = $1 ";
+
+    const getCurrentUserDataResult = await pool.query(getCurrentUserDataQuery, [
+      userId,
+    ]);
+
+    if (getCurrentUserDataResult.rowCount > 0) {
+      const userData = getCurrentUserDataResult.rows[0];
+      const { user_display_name, user_name, user_email, user_type } = userData;
+      const formattedData = {
+        userDisplayName: user_display_name,
+        userName: user_name,
+        userEmail: user_email,
+        userType: user_type,
+      };
+      res.status(200).json({
+        message: formattedData,
+        success: true,
+      });
+    } else {
+      res.status(200).json({
+        message: "This user doesnt exist!",
         success: true,
       });
     }
@@ -95,4 +129,56 @@ const deleteUserData = async (req, res, next) => {
   }
 };
 
-module.exports = { getUserData, addUserData, deleteUserData };
+const updateUserData = async (req, res, next) => {
+  const { userName, userDisplayName, userEmail, userType, userPassword } =
+    req.body;
+
+  const { userId } = req.params;
+
+  try {
+    let hashedUpdatedPassword;
+
+    if (!userPassword || userPassword.trim() === "") {
+      // If userPassword is empty or undefined, retrieve the current password from the database
+      const getUserQuery = "SELECT user_password FROM users WHERE id = $1";
+      const getUserResult = await pool.query(getUserQuery, [userId]);
+
+      if (getUserResult.rows.length > 0) {
+        hashedUpdatedPassword = getUserResult.rows[0].user_password;
+      } else {
+        throw new Error("User not found");
+      }
+    } else {
+      hashedUpdatedPassword = bcryptjs.hashSync(userPassword, 10);
+    }
+
+    const updateUserQuery =
+      "UPDATE users SET user_display_name = $1, user_name = $2, user_email = $3, user_password = $4, user_type = $5 WHERE id = $6";
+
+    const updateUserResult = await pool.query(updateUserQuery, [
+      userDisplayName,
+      userName,
+      userEmail,
+      hashedUpdatedPassword,
+      userType,
+      userId,
+    ]);
+
+    if (updateUserResult.rowCount > 0) {
+      res.status(200).json({
+        success: true,
+        message: "User successfully updated!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  getUserData,
+  addUserData,
+  deleteUserData,
+  getCurrentUserData,
+  updateUserData,
+};

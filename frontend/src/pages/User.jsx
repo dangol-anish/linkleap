@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import sbAdd from "../assets/sidebar/sbAdd.svg";
-import Modal from "react-modal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "../components/Pagination";
@@ -11,58 +9,8 @@ import AddUser from "../components/User/AddUser";
 
 const User = () => {
   const [userList, setUserList] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
-  const [userData, setUserData] = useState({
-    userType: "Manager",
-  });
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
-  console.log(userList);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (
-      !userData.userName ||
-      !userData.userDisplayName ||
-      !userData.userEmail ||
-      !userData.userPassword ||
-      !userData.userType
-    ) {
-      toast.error("All input fields are required");
-      return;
-    }
-
-    try {
-      const res = await fetch(
-        "http://localhost:3000/api/dashboard/addNewUser",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-
-      if (data.success === true) {
-        toast.success("New User Created!");
-        closeModal();
-        // Update user list
-        getUserData();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      toast.error("Error: " + error);
-    }
-  };
 
   useEffect(() => {
     getUserData();
@@ -96,7 +44,9 @@ const User = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = userList.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = Array.isArray(userList)
+    ? userList.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -113,64 +63,66 @@ const User = () => {
                   Track, manage, and forecast your customer and orders.
                 </p>
               </div>
-              <AddUser
-                setModalIsOpen={setModalIsOpen}
-                modalIsOpen={modalIsOpen}
-                handleSubmit={handleSubmit}
-                setUserData={setUserData}
-                userData={userData}
-                closeModal={closeModal}
-              />
+              <AddUser getUserData={getUserData} />
             </div>
 
-            <table className="w-full">
-              <thead className="w-full text-[12px] text-left">
-                <tr className="text-left">
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                    Users
-                  </th>
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                    Role
-                  </th>
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                    Username
-                  </th>
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                    Password
-                  </th>
-                  <th></th>
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((user, index) => (
-                  <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                      <span className="text-[14px]">
-                        {user.user_display_name}
-                      </span>
-                      <br />
-                      <span className="text-[14px] text-linkleap-gray">
-                        {user.user_email}
-                      </span>
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      {user.user_type}
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      {user.user_name}
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      *******
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                      <DeleteUser userId={user.id} getUserData={getUserData} />
-                      <EditUser />
-                    </td>
+            {userList.length === 0 ? (
+              <div className="text-center text-linkleap-gray mt-8">
+                No users found.
+              </div>
+            ) : (
+              <table className="w-full">
+                <thead className="w-full text-[12px] text-left">
+                  <tr className="text-left">
+                    <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      Users
+                    </th>
+                    <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      Role
+                    </th>
+                    <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      Username
+                    </th>
+                    <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      Password
+                    </th>
+                    <th></th>
+                    <th className="px-[24px] py-[12px] text-linkleap-gray font-medium"></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentItems.map((user, index) => (
+                    <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                        <span className="text-[14px]">
+                          {user.user_display_name}
+                        </span>
+                        <br />
+                        <span className="text-[14px] text-linkleap-gray">
+                          {user.user_email}
+                        </span>
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                        {user.user_type}
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                        {user.user_name}
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                        *******
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
+                        <DeleteUser
+                          userId={user.id}
+                          getUserData={getUserData}
+                        />
+                        <EditUser userId={user.id} getUserData={getUserData} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
 
           <div>
