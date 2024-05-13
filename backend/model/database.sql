@@ -15,10 +15,13 @@ CREATE TABLE users (
 
 
 CREATE TABLE companies (
-    company_id INT PRIMARY KEY,
+    company_id SERIAL PRIMARY KEY,
     company_name VARCHAR(255),
     company_website VARCHAR(255),
     total_employee INT DEFAULT 0,
-    company_description_title  VARCHAR(255),
+    company_description_title VARCHAR(255),
     company_description TEXT
 );
+
+
+

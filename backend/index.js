@@ -21,9 +21,11 @@ app.use(cookieParser());
 // routes
 const authRouter = require("./routes/auth.router.js");
 const userRouter = require("./routes/user.route.js");
+const companyRouter = require("./routes/company.route.js");
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", verifyToken, userRouter);
+app.use("/api/company", verifyToken, companyRouter);
 app.get("/verifyUserToken", verifyToken, verifyUserToken);
 
 // routes
