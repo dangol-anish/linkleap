@@ -61,7 +61,7 @@ const EditUser = ({ userId, getUserData }) => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:3000/api/dashboard/updateUserData/${userId}`,
+        `http://localhost:3000/api/user/updateUserData/${userId}`,
         {
           method: "POST",
           headers: {

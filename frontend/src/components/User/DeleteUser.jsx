@@ -3,7 +3,7 @@ import deleteBtn from "../../assets/delete.svg";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
-const deleteUser = ({ userId, getUserData }) => {
+const DeleteUser = ({ userId, getUserData }) => {
   const handleUserDelete = async () => {
     try {
       const res = await fetch(
@@ -38,4 +38,4 @@ const deleteUser = ({ userId, getUserData }) => {
   );
 };
 
-export default deleteUser;
+export default DeleteUser;
