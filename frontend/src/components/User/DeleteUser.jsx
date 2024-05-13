@@ -7,7 +7,7 @@ const deleteUser = ({ userId, getUserData }) => {
   const handleUserDelete = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/dashboard/deleteUser/${userId}`,
+        `http://localhost:3000/api/user/deleteUser/${userId}`,
         {
           method: "DELETE",
           headers: {

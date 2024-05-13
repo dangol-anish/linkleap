@@ -32,17 +32,14 @@ const AddUser = ({ getUserData }) => {
     }
 
     try {
-      const res = await fetch(
-        "http://localhost:3000/api/dashboard/addNewUser",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-          credentials: "include",
-        }
-      );
+      const res = await fetch("http://localhost:3000/api/user/addNewUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+        credentials: "include",
+      });
       const data = await res.json();
 
       if (data.success === true) {

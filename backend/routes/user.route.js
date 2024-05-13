@@ -7,7 +7,7 @@ const {
   deleteUserData,
   getCurrentUserData,
   updateUserData,
-} = require("../controllers/dashboard.controller.js");
+} = require("../controllers/user.controller.js");
 
 router.post("/", getUserData);
 router.post("/addNewUser", addUserData);

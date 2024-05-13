@@ -12,9 +12,13 @@ const EditUser = ({ userId, getUserData }) => {
 
   const openModal = () => {
     setModalIsOpen(true);
+    getCurrentUserData();
   };
 
   const closeModal = () => {
+    setCurrentUserData({
+      userPassword: "",
+    });
     setModalIsOpen(false);
   };
 
@@ -28,7 +32,7 @@ const EditUser = ({ userId, getUserData }) => {
   const getCurrentUserData = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/dashboard/getCurrentUserData/${userId}`,
+        `http://localhost:3000/api/user/getCurrentUserData/${userId}`,
         {
           method: "POST",
           headers: {
@@ -49,9 +53,9 @@ const EditUser = ({ userId, getUserData }) => {
     }
   };
 
-  useEffect(() => {
-    getCurrentUserData();
-  }, []);
+  // useEffect(() => {
+  //   getCurrentUserData();
+  // }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();

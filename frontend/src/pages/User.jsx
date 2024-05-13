@@ -3,9 +3,10 @@ import Sidebar from "../components/Sidebar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "../components/Pagination";
-import DeleteUser from "../components/User/DeleteUser";
+
 import EditUser from "../components/User/EditUser";
 import AddUser from "../components/User/AddUser";
+import DeleteUser from "../components/User/DeleteUser";
 
 const User = () => {
   const [userList, setUserList] = useState([]);
@@ -24,7 +25,7 @@ const User = () => {
     const currentUserData = JSON.parse(localStorage.getItem("data"));
     const userId = currentUserData.id;
     try {
-      const res = await fetch("http://localhost:3000/api/dashboard/", {
+      const res = await fetch("http://localhost:3000/api/user/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

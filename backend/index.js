@@ -20,10 +20,10 @@ app.use(cookieParser());
 
 // routes
 const authRouter = require("./routes/auth.router.js");
-const dashboardRouter = require("./routes/dashboard.route.js");
+const userRouter = require("./routes/user.route.js");
 
 app.use("/api/auth", authRouter);
-app.use("/api/dashboard", verifyToken, dashboardRouter);
+app.use("/api/user", verifyToken, userRouter);
 app.get("/verifyUserToken", verifyToken, verifyUserToken);
 
 // routes
