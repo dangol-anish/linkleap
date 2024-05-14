@@ -70,20 +70,20 @@ const User = () => {
             <table className="w-full">
               <thead className="w-full text-[12px] text-left">
                 <tr className="text-left">
-                  <th className="px-[24px] py-[12px]  text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[50%] py-[12px]  text-linkleap-gray font-medium">
                     Users
                   </th>
-                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[13%]  py-[12px] text-linkleap-gray font-medium">
                     Role
                   </th>
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[13%] py-[12px] text-linkleap-gray font-medium">
                     Username
                   </th>
-                  <th className="px-[24px] w-[155px] py-[12px] text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[13%] py-[12px] text-linkleap-gray font-medium">
                     Password
                   </th>
 
-                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium"></th>
+                  <th className="px-[24px] w-[11%]  py-[12px] text-linkleap-gray font-medium"></th>
                 </tr>
               </thead>
               <tbody>

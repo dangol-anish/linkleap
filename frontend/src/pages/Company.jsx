@@ -62,16 +62,16 @@ const Company = () => {
             <table className="w-full">
               <thead className="w-full text-[12px] text-left">
                 <tr className="text-left">
-                  <th className="px-[24px] py-[12px]  text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[55%] py-[12px]  text-linkleap-gray font-medium">
                     Company
                   </th>
-                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[14%]  py-[12px] text-linkleap-gray font-medium">
                     Total People
                   </th>
-                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                  <th className="px-[24px] w-[21%] py-[12px] text-linkleap-gray font-medium">
                     About
                   </th>
-                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium"></th>
+                  <th className="px-[24px] w-[10%]  py-[12px] text-linkleap-gray font-medium"></th>
                 </tr>
               </thead>
               <tbody>
