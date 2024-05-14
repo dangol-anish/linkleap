@@ -67,63 +67,54 @@ const User = () => {
               <AddUser getUserData={getUserData} />
             </div>
 
-            {userList.length === 0 ? (
-              <div className="text-center text-linkleap-gray mt-8">
-                No users found.
-              </div>
-            ) : (
-              <table className="w-full">
-                <thead className="w-full text-[12px] text-left">
-                  <tr className="text-left">
-                    <th className="px-[24px] py-[12px]  text-linkleap-gray font-medium">
-                      Users
-                    </th>
-                    <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium">
-                      Role
-                    </th>
-                    <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                      Username
-                    </th>
-                    <th className="px-[24px] w-[155px] py-[12px] text-linkleap-gray font-medium">
-                      Password
-                    </th>
+            <table className="w-full">
+              <thead className="w-full text-[12px] text-left">
+                <tr className="text-left">
+                  <th className="px-[24px] py-[12px]  text-linkleap-gray font-medium">
+                    Users
+                  </th>
+                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium">
+                    Role
+                  </th>
+                  <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                    Username
+                  </th>
+                  <th className="px-[24px] w-[155px] py-[12px] text-linkleap-gray font-medium">
+                    Password
+                  </th>
 
-                    <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium"></th>
+                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems.map((user, index) => (
+                  <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      <span className="text-[14px]">
+                        {user.user_display_name}
+                      </span>
+                      <br />
+                      <span className="text-[14px] text-linkleap-gray">
+                        {user.user_email}
+                      </span>
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      {user.user_type}
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      {user.user_name}
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      *******
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
+                      <DeleteUser userId={user.id} getUserData={getUserData} />
+                      <EditUser userId={user.id} getUserData={getUserData} />
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {currentItems.map((user, index) => (
-                    <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                        <span className="text-[14px]">
-                          {user.user_display_name}
-                        </span>
-                        <br />
-                        <span className="text-[14px] text-linkleap-gray">
-                          {user.user_email}
-                        </span>
-                      </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                        {user.user_type}
-                      </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                        {user.user_name}
-                      </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                        *******
-                      </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                        <DeleteUser
-                          userId={user.id}
-                          getUserData={getUserData}
-                        />
-                        <EditUser userId={user.id} getUserData={getUserData} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+                ))}
+              </tbody>
+            </table>
           </div>
 
           <div>
