@@ -16,12 +16,34 @@ CREATE TABLE users (
 
 CREATE TABLE companies (
     company_id SERIAL PRIMARY KEY,
-    company_name VARCHAR(255),
-    company_website VARCHAR(255),
+    company_name VARCHAR(255) NOT NULL,
+    company_website VARCHAR(255) UNIQUE NOT NULL,
     total_employee INT DEFAULT 0,
     company_description_title VARCHAR(255),
     company_description TEXT
 );
 
 
+CREATE TABLE customers (
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(255) NOT NULL,
+    customer_email VARCHAR(255) UNIQUE NOT NULL,
+    customer_company VARCHAR(255),
+    customer_job_title VARCHAR(255),
+    customer_deal_value DECIMAL(10, 2),
+    customer_description TEXT,
+    customer_status VARCHAR(50)
+);
+
+
+CREATE TABLE customer_logs (
+    log_id SERIAL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    event_type VARCHAR(50) NOT NULL,
+    event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    changed_by VARCHAR(255),
+    old_value TEXT,
+    new_value TEXT,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
 
