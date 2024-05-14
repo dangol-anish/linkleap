@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import AddCompany from "../components/Company/AddCompany";
 import DeleteCompany from "../components/Company/DeleteCompany";
 import EditCompany from "../components/Company/EditCompany";
+import { Link } from "react-router-dom";
 
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
@@ -79,9 +80,13 @@ const Company = () => {
                 {currentItems.map((company, index) => (
                   <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                      <span className="text-[14px]">
+                      <Link
+                        to={`/company/${company.company_id}`}
+                        className="text-[14px]"
+                      >
                         {company.company_name}
-                      </span>
+                      </Link>
+
                       <br />
                       <span className="text-[14px] text-linkleap-gray">
                         {company.company_website}

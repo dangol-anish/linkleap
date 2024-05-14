@@ -7,6 +7,8 @@ import Company from "./pages/Company";
 import User from "./pages/User";
 import Protected from "./components/Protected";
 import Public from "./components/Public";
+import CompanyDetails from "./pages/CompanyDetails";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -22,8 +24,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/customer" element={<Customer />} />
             <Route path="/company" element={<Company />} />
+            <Route path="/company/:companyId" element={<CompanyDetails />} />
             <Route path="/user" element={<User />} />
           </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

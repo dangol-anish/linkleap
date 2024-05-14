@@ -103,7 +103,7 @@ const Sidebar = () => {
             )}
           </ul>
         </section>
-        <section className="flex justify-between px-[16px] py-[24px] border-t-[1px] border-linkleap-border">
+        <section className="flex justify-between px-[16px] py-[24px] border-t-[1px] border-linkleap-border items-center">
           <div className="flex gap-[12px] px-[8px] justify-between">
             <div className="text-[14px]">
               <p className="font-medium">{userData.user_display_name}</p>
@@ -112,7 +112,7 @@ const Sidebar = () => {
           </div>
 
           <img
-            className="cursor-pointer"
+            className="cursor-pointer w-[20px] h-[20px]"
             src={logout}
             onClick={onSubmit}
             alt="logoutBtn"
