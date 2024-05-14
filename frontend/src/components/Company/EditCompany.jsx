@@ -119,6 +119,7 @@ const EditCompany = ({ companyId, getCompanyData }) => {
                   type="text"
                   placeholder="ABC Pvt. Ltd"
                   id="companyName"
+                  name="companyName"
                   onChange={handleChange}
                   value={currentCompanyData.companyName}
                 />
@@ -129,6 +130,7 @@ const EditCompany = ({ companyId, getCompanyData }) => {
                   className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                   type="text"
                   id="companyWebsite"
+                  name="companyWebsite"
                   placeholder="abc.com.np"
                   onChange={handleChange}
                   value={currentCompanyData.companyWebsite}
@@ -142,8 +144,8 @@ const EditCompany = ({ companyId, getCompanyData }) => {
                   className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                   type="text"
                   placeholder="ABC Title"
-                  name=""
                   id="companyDescTitle"
+                  name="companyDescTitle"
                   onChange={handleChange}
                   value={currentCompanyData.companyDescTitle}
                 />
@@ -152,7 +154,7 @@ const EditCompany = ({ companyId, getCompanyData }) => {
                 <p className="text-[14px] font-medium">Company Description</p>
                 <textarea
                   className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] h-[124px] resize-none"
-                  name=""
+                  name="companyDesc"
                   id="companyDesc"
                   onChange={handleChange}
                   value={currentCompanyData.companyDesc}

@@ -7,7 +7,7 @@ const { errorHandler } = require("../utils/errorHandler.js");
 
 const getCompanyData = async (req, res, next) => {
   try {
-    const getCompanyDataQuery = "select * from companies";
+    const getCompanyDataQuery = "select * from companies order by company_id";
 
     const getCompanyDataResult = await pool.query(getCompanyDataQuery);
 
@@ -129,9 +129,39 @@ const deleteCompanyData = async (req, res, next) => {
   }
 };
 
+const updateCompanyData = async (req, res, next) => {
+  const { companyName, companyWebsite, companyDescTitle, companyDesc } =
+    req.body;
+
+  const { companyId } = req.params;
+
+  try {
+    const updateCompanyQuery =
+      "UPDATE companies SET company_name = $1, company_website = $2, company_description_title = $3, company_description = $4 WHERE company_id = $5";
+
+    const updateCompanyResult = await pool.query(updateCompanyQuery, [
+      companyName,
+      companyWebsite,
+      companyDescTitle,
+      companyDesc,
+      companyId,
+    ]);
+
+    if (updateCompanyResult.rowCount > 0) {
+      res.status(200).json({
+        success: true,
+        message: "Company successfully updated!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getCompanyData,
   addCompanyData,
   deleteCompanyData,
   getCurrentCompanyData,
+  updateCompanyData,
 };

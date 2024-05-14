@@ -6,11 +6,13 @@ const {
   addCompanyData,
   deleteCompanyData,
   getCurrentCompanyData,
+  updateCompanyData,
 } = require("../controllers/company.controller.js");
 
 router.post("/", getCompanyData);
 router.post("/addNewCompany", addCompanyData);
 router.delete("/deleteCompany/:companyId", deleteCompanyData);
 router.post("/getCurrentCompanyData/:companyId", getCurrentCompanyData);
+router.post("/updateCompanyData/:companyId", updateCompanyData);
 
 module.exports = router;
