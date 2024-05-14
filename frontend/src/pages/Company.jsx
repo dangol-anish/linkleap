@@ -4,6 +4,7 @@ import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Pagination from "../components/Pagination";
 import AddCompany from "../components/Company/AddCompany";
 import DeleteCompany from "../components/Company/DeleteCompany";
+import EditCompany from "../components/Company/EditCompany";
 
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
@@ -100,6 +101,10 @@ const Company = () => {
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
                       <DeleteCompany
+                        companyId={company.company_id}
+                        getCompanyData={getCompanyData}
+                      />
+                      <EditCompany
                         companyId={company.company_id}
                         getCompanyData={getCompanyData}
                       />

@@ -27,6 +27,46 @@ const getCompanyData = async (req, res, next) => {
   }
 };
 
+const getCurrentCompanyData = async (req, res, next) => {
+  const { companyId } = req.params;
+  try {
+    const getCurrentCompanyDataQuery =
+      "select * from companies where company_id = $1 ";
+
+    const getCurrentCompanyDataResult = await pool.query(
+      getCurrentCompanyDataQuery,
+      [companyId]
+    );
+
+    if (getCurrentCompanyDataResult.rowCount > 0) {
+      const companyData = getCurrentCompanyDataResult.rows[0];
+      const {
+        company_name,
+        company_website,
+        company_description_title,
+        company_description,
+      } = companyData;
+      const formattedData = {
+        companyName: company_name,
+        companyWebsite: company_website,
+        companyDescTitle: company_description_title,
+        companyDesc: company_description,
+      };
+      res.status(200).json({
+        message: formattedData,
+        success: true,
+      });
+    } else {
+      res.status(200).json({
+        message: "This company doesnt exist!",
+        success: true,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const addCompanyData = async (req, res, next) => {
   const { companyName, companyWebsite, companyDescTitle, companyDesc } =
     req.body;
@@ -93,4 +133,5 @@ module.exports = {
   getCompanyData,
   addCompanyData,
   deleteCompanyData,
+  getCurrentCompanyData,
 };

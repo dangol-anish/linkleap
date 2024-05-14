@@ -3,36 +3,30 @@ import editBtn from "../../assets/edit.svg";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 
-const EditUser = ({ userId, getUserData }) => {
-  const [currentUserData, setCurrentUserData] = useState({
-    userPassword: "",
-  });
-
+const EditCompany = ({ companyId, getCompanyData }) => {
+  const [currentCompanyData, setCurrentCompanyData] = useState({});
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
-    getCurrentUserData();
+    getCurrentCompanyData();
   };
 
   const closeModal = () => {
-    setCurrentUserData({
-      userPassword: "",
-    });
+    setCurrentCompanyData({});
     setModalIsOpen(false);
   };
-
   const handleChange = (e) => {
-    setCurrentUserData({
-      ...currentUserData,
+    setCurrentCompanyData({
+      ...currentCompanyData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const getCurrentUserData = async () => {
+  const getCurrentCompanyData = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/user/getCurrentUserData/${userId}`,
+        `http://localhost:3000/api/company/getCurrentCompanyData/${companyId}`,
         {
           method: "POST",
           headers: {
@@ -44,7 +38,7 @@ const EditUser = ({ userId, getUserData }) => {
       const data = await res.json();
 
       if (data.success === true) {
-        setCurrentUserData(data.message);
+        setCurrentCompanyData(data.message);
       } else {
         toast.error(data.message);
       }
@@ -57,13 +51,13 @@ const EditUser = ({ userId, getUserData }) => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:3000/api/user/updateUserData/${userId}`,
+        `http://localhost:3000/api/company/updateCompanyData/${companyId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(currentUserData),
+          body: JSON.stringify(currentCompanyData),
           credentials: "include",
         }
       );
@@ -73,8 +67,8 @@ const EditUser = ({ userId, getUserData }) => {
       if (data.success === true) {
         closeModal();
 
-        getUserData();
-        toast.success("User data edited!");
+        getCompanyData();
+        toast.success("Company data edited!");
       } else {
         toast.error(data.message);
       }
@@ -107,79 +101,62 @@ const EditUser = ({ userId, getUserData }) => {
         >
           <div className="flex flex-col gap-[20px]">
             <div className="flex gap-[8px] flex-col justify-center items-center">
-              <h3 className="text-[18px] font-semibold">Edit User</h3>
+              <h3 className="text-[18px] font-semibold">
+                Edit Company Details
+              </h3>
               <p
                 className="text-linkleap-gray text-[14px] font-normal
                   "
               >
-                Edit the details of the user
+                Edit the details of company
               </p>
             </div>
             <div className="flex flex-col gap-[16px]">
               <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Name</p>
+                <p className="text-[14px] font-medium">Company Name</p>
                 <input
                   className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                   type="text"
-                  placeholder="Shrijan Dangol"
-                  id="userDisplayName"
-                  name="userDisplayName"
+                  placeholder="ABC Pvt. Ltd"
+                  id="companyName"
                   onChange={handleChange}
-                  value={currentUserData.userDisplayName}
+                  value={currentCompanyData.companyName}
                 />
               </label>
               <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Email</p>
-                <input
-                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
-                  type="email"
-                  id="userEmail"
-                  placeholder="shrijan@gmail.com"
-                  name="userEmail"
-                  onChange={handleChange}
-                  value={currentUserData.userEmail}
-                />
-              </label>
-              <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Username</p>
+                <p className="text-[14px] font-medium">Website</p>
                 <input
                   className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
                   type="text"
-                  id="userName"
-                  name="userName"
-                  placeholder="shrijandangol"
+                  id="companyWebsite"
+                  placeholder="abc.com.np"
                   onChange={handleChange}
-                  value={currentUserData.userName}
+                  value={currentCompanyData.companyWebsite}
                 />
               </label>
               <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Password</p>
+                <p className="text-[14px] font-medium">
+                  Company Description Title
+                </p>
                 <input
                   className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
-                  type="password"
-                  placeholder="********"
-                  id="userPassword"
+                  type="text"
+                  placeholder="ABC Title"
+                  name=""
+                  id="companyDescTitle"
                   onChange={handleChange}
-                  name="userPassword"
+                  value={currentCompanyData.companyDescTitle}
                 />
               </label>
               <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Role</p>
-                <select
-                  className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] custom-select cursor-pointer"
-                  name="userType"
-                  id="userType"
-                  value={currentUserData.userType}
+                <p className="text-[14px] font-medium">Company Description</p>
+                <textarea
+                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] h-[124px] resize-none"
+                  name=""
+                  id="companyDesc"
                   onChange={handleChange}
-                >
-                  <option className="" value="Manager">
-                    Manager
-                  </option>
-                  <option value="Customer Support">Customer Support</option>
-                  <option value="Sales Representative">
-                    Sales Representative
-                  </option>
-                </select>
+                  value={currentCompanyData.companyDesc}
+                ></textarea>
               </label>
             </div>
           </div>
@@ -200,4 +177,4 @@ const EditUser = ({ userId, getUserData }) => {
   );
 };
 
-export default EditUser;
+export default EditCompany;
