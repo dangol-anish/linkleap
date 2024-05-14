@@ -3,13 +3,12 @@ import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Pagination from "../components/Pagination";
 import AddCompany from "../components/Company/AddCompany";
+import DeleteCompany from "../components/Company/DeleteCompany";
 
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
-
-  // console.log(companyList);
 
   useEffect(() => {
     getCompanyData();
@@ -100,10 +99,10 @@ const Company = () => {
                       </span>
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                      {/* <DeleteUser userId={user.id} getUserData={getUserData} />
-                      <EditUser userId={user.id} getUserData={getUserData} /> */}
-                      Delete <br />
-                      Edit
+                      <DeleteCompany
+                        companyId={company.company_id}
+                        getCompanyData={getCompanyData}
+                      />
                     </td>
                   </tr>
                 ))}

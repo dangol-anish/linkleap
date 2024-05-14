@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 const AddCompany = ({ getCompanyData }) => {
   const [companyData, setCompanyData] = useState({});
 
-  console.log(companyData);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
     setModalIsOpen(true);

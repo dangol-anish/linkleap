@@ -65,7 +65,32 @@ const addCompanyData = async (req, res, next) => {
   }
 };
 
+const deleteCompanyData = async (req, res, next) => {
+  const { companyId } = req.params;
+  try {
+    const deleteCompanyQuery = "delete from companies where company_id = $1";
+    const deleteCompanyResult = await pool.query(deleteCompanyQuery, [
+      companyId,
+    ]);
+
+    if (deleteCompanyResult.rowCount > 0) {
+      res.status(200).json({
+        success: true,
+        message: "Company successfully removed!",
+      });
+    } else {
+      res.status(200).json({
+        success: false,
+        message: "Failed to remove company data!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getCompanyData,
   addCompanyData,
+  deleteCompanyData,
 };
