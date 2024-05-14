@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Pagination from "../components/Pagination";
+import AddCompany from "../components/Company/AddCompany";
 
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
 
-  console.log(companyList);
+  // console.log(companyList);
 
   useEffect(() => {
     getCompanyData();
@@ -56,10 +57,7 @@ const Company = () => {
                   Track, manage, and forecast your customer and orders.
                 </p>
               </div>
-              <button className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]">
-                <img src={sbAdd} alt="sbAdd" />
-                <span className="text-[14px] font-medium text-white">Add</span>
-              </button>
+              <AddCompany getCompanyData={getCompanyData} />
             </div>
 
             <table className="w-full">
@@ -74,6 +72,7 @@ const Company = () => {
                   <th className="px-[24px] py-[12px] text-linkleap-gray font-medium">
                     About
                   </th>
+                  <th className="px-[24px]  py-[12px] text-linkleap-gray font-medium"></th>
                 </tr>
               </thead>
               <tbody>
@@ -99,6 +98,12 @@ const Company = () => {
                       <span className="text-[14px] text-linkleap-gray">
                         {company.company_description}
                       </span>
+                    </td>
+                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
+                      {/* <DeleteUser userId={user.id} getUserData={getUserData} />
+                      <EditUser userId={user.id} getUserData={getUserData} /> */}
+                      Delete <br />
+                      Edit
                     </td>
                   </tr>
                 ))}
