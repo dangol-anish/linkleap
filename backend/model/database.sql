@@ -35,6 +35,14 @@ CREATE TABLE customers (
     customer_status VARCHAR(50)
 );
 
+CREATE TABLE company_customers (
+    company_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    PRIMARY KEY (company_id, customer_id),
+    FOREIGN KEY (company_id) REFERENCES companies(company_id) ON DELETE CASCADE,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE customer_logs (
     log_id SERIAL PRIMARY KEY,

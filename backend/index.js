@@ -2,11 +2,17 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
+// user defined imports
 const errorHandler = require("./utils/errorHandler.js");
 const verifyToken = require("./utils/verifyToken.js");
 const {
   verifyUserToken,
 } = require("../backend/controllers/auth.controller.js");
+const authRouter = require("./routes/auth.router.js");
+const userRouter = require("./routes/user.route.js");
+const companyRouter = require("./routes/company.route.js");
+const customerRouter = require("./routes/customer.route.js");
 
 // middlewares
 app.use(
@@ -19,16 +25,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // routes
-const authRouter = require("./routes/auth.router.js");
-const userRouter = require("./routes/user.route.js");
-const companyRouter = require("./routes/company.route.js");
-
 app.use("/api/auth", authRouter);
 app.use("/api/user", verifyToken, userRouter);
 app.use("/api/company", verifyToken, companyRouter);
+app.use("/api/customer", verifyToken, customerRouter);
 app.get("/verifyUserToken", verifyToken, verifyUserToken);
-
-// routes
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
