@@ -64,38 +64,17 @@ const AddCustomer = ({ getCustomerData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(customerData);
-    let missingFields = [];
-
-    if (!customerData.customerName) {
-      missingFields.push("customerName");
-    }
-    if (!customerData.customerEmail) {
-      missingFields.push("customerEmail");
-    }
-    if (!customerData.customerJobTitle) {
-      missingFields.push("customerJobTitle");
-    }
-    if (!customerData.customerDealValue) {
-      missingFields.push("customerDealValue");
-    }
-    if (!customerData.dealValueCurrency) {
-      missingFields.push("dealValueCurrency");
-    }
-    if (!customerData.customerDescription) {
-      missingFields.push("customerDescription");
-    }
-    if (!customerData.customerCompany) {
-      missingFields.push("customerCompany");
-    }
-    if (!customerData.customerStatus) {
-      missingFields.push("customerStatus");
-    }
-
-    if (missingFields.length > 0) {
-      toast.error(
-        `The following fields are required: ${missingFields.join(", ")}`
-      );
+    if (
+      !customerData.customerName ||
+      !customerData.customerEmail ||
+      !customerData.customerJobTitle ||
+      !customerData.customerDealValue ||
+      !customerData.dealValueCurrency ||
+      !customerData.customerDescription ||
+      !customerData.customerCompany ||
+      !customerData.customerStatus
+    ) {
+      toast.error("All input fields are required");
       return;
     }
 
