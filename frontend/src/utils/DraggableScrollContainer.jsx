@@ -20,7 +20,7 @@ const DraggableScrollContainer = ({ children, className }) => {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll faster
+    const walk = (x - startX) * 2;
     containerRef.current.scrollLeft = scrollLeft - walk;
   };
 
