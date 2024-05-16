@@ -101,4 +101,26 @@ const addCustomerData = async (req, res, next) => {
   }
 };
 
-module.exports = { addCustomerData };
+const getCustomerData = async (req, res, next) => {
+  try {
+    const getCustomerDataQuery = "select * from customers order by customer_id";
+
+    const getCustomerDataResult = await pool.query(getCustomerDataQuery);
+
+    if (getCustomerDataResult.rowCount > 0) {
+      res.status(200).json({
+        message: getCustomerDataResult.rows,
+        success: true,
+      });
+    } else {
+      res.status(200).json({
+        message: "No customers available",
+        success: true,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { addCustomerData, getCustomerData };

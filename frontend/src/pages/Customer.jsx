@@ -4,6 +4,8 @@ import sbAdd from "../assets/sidebar/sbAdd.svg";
 import AddCustomer from "../components/Customer/AddCustomer";
 
 const Customer = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   return (
     <>
       <main className="flex min-h-screen">
