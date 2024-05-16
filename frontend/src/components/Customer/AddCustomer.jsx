@@ -14,7 +14,6 @@ const AddCustomer = ({ getCustomerData }) => {
   const [customerData, setCustomerData] = useState({
     dealValueCurrency: "USD",
     customerStatus: "To Contact",
-    customerCompany: "Anish's Company",
     userId: userId,
   });
 
@@ -217,6 +216,7 @@ const AddCustomer = ({ getCustomerData }) => {
                   id="customerCompany"
                   onChange={handleChange}
                 >
+                  <option className="">Select a Company</option>
                   {companyNames.map((companyName) => (
                     <option key={companyName} className="" value={companyName}>
                       {companyName}

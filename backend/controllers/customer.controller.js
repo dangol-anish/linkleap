@@ -123,4 +123,81 @@ const getCustomerData = async (req, res, next) => {
   }
 };
 
-module.exports = { addCustomerData, getCustomerData };
+const deleteCustomerData = async (req, res, next) => {
+  const { customerId } = req.params;
+  try {
+    const deleteCustomerQuery = "delete from customers where customer_id = $1";
+    const deleteCustomerResult = await pool.query(deleteCustomerQuery, [
+      customerId,
+    ]);
+
+    if (deleteCustomerResult.rowCount > 0) {
+      res.status(200).json({
+        success: true,
+        message: "Customer successfully removed!",
+      });
+    } else {
+      res.status(200).json({
+        success: false,
+        message: "Failed to remove customer data!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getCurrentCustomerData = async (req, res, next) => {
+  const { customerId } = req.params;
+  try {
+    const getCurrentCustomerDataQuery =
+      "select * from customers where customer_id = $1 ";
+
+    const getCurrentCustomerDataResult = await pool.query(
+      getCurrentCustomerDataQuery,
+      [customerId]
+    );
+
+    if (getCurrentCustomerDataResult.rowCount > 0) {
+      const customerData = getCurrentCustomerDataResult.rows[0];
+      const {
+        customer_name,
+        customer_email,
+        customer_company,
+        customer_job_title,
+        customer_deal_value,
+        customer_deal_currency,
+        customer_description,
+        customer_status,
+      } = customerData;
+      const formattedData = {
+        customerName: customer_name,
+        customerEmail: customer_email,
+        customerCompany: customer_company,
+        customerJobTitle: customer_job_title,
+        customerDealValue: customer_deal_value,
+        dealValueCurrency: customer_deal_currency,
+        customerDescription: customer_description,
+        customerStatus: customer_status,
+      };
+      res.status(200).json({
+        message: formattedData,
+        success: true,
+      });
+    } else {
+      res.status(200).json({
+        message: "This customer doesnt exist!",
+        success: true,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  addCustomerData,
+  getCustomerData,
+  deleteCustomerData,
+  getCurrentCustomerData,
+};

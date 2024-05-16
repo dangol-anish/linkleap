@@ -134,6 +134,20 @@ const updateCompanyData = async (req, res, next) => {
   const { companyId } = req.params;
 
   try {
+    const checkWebsiteQuery =
+      "SELECT company_id FROM companies WHERE company_website = $1 AND company_id != $2";
+    const checkWebsiteResult = await pool.query(checkWebsiteQuery, [
+      companyWebsite,
+      companyId,
+    ]);
+
+    if (checkWebsiteResult.rows.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Website already in use by another company",
+      });
+    }
+
     const updateCompanyQuery =
       "UPDATE companies SET company_name = $1, company_website = $2, company_description_title = $3, company_description = $4 WHERE company_id = $5";
 
@@ -149,6 +163,11 @@ const updateCompanyData = async (req, res, next) => {
       res.status(200).json({
         success: true,
         message: "Company successfully updated!",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Company not found",
       });
     }
   } catch (error) {

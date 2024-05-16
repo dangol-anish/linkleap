@@ -135,6 +135,20 @@ const updateUserData = async (req, res, next) => {
   const { userId } = req.params;
 
   try {
+    const checkEmailQuery =
+      "SELECT id FROM users WHERE user_email = $1 AND id != $2";
+    const checkEmailResult = await pool.query(checkEmailQuery, [
+      userEmail,
+      userId,
+    ]);
+
+    if (checkEmailResult.rows.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already in use by another user",
+      });
+    }
+
     let hashedUpdatedPassword;
 
     if (!userPassword || userPassword.trim() === "") {
@@ -167,6 +181,11 @@ const updateUserData = async (req, res, next) => {
       res.status(200).json({
         success: true,
         message: "User successfully updated!",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "User not found",
       });
     }
   } catch (error) {

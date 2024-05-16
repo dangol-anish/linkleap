@@ -119,11 +119,11 @@ const Customer = () => {
                         {customer.customer_status}
                       </td>
                       <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                        <EditCustomer
+                        <DeleteCustomer
                           customerId={customer.customer_id}
                           getCustomerData={getCustomerData}
                         />
-                        <DeleteCustomer
+                        <EditCustomer
                           customerId={customer.customer_id}
                           getCustomerData={getCustomerData}
                         />
