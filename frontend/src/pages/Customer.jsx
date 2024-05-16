@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import AddCustomer from "../components/Customer/AddCustomer";
+import EditCustomer from "../components/Customer/EditCustomer";
+import DeleteCustomer from "../components/Customer/DeleteCustomer";
 import { Link } from "react-router-dom";
 import { getCurrencySymbol } from "../utils/currencyConverter";
 import Pagination from "../components/Pagination";
@@ -117,9 +119,14 @@ const Customer = () => {
                         {customer.customer_status}
                       </td>
                       <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                        edit
-                        <br />
-                        delete
+                        <EditCustomer
+                          customerId={customer.customer_id}
+                          getCustomerData={getCustomerData}
+                        />
+                        <DeleteCustomer
+                          customerId={customer.customer_id}
+                          getCustomerData={getCustomerData}
+                        />
                       </td>
                     </tr>
                   ))}
