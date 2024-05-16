@@ -8,7 +8,11 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   }
 
   return (
-    <footer className="border-t-[1px] border-linkleap-border h-[64px]  bottom-0 w-full px-[24px] text-[14px] pt-[12px] py-[12px] flex justify-between items-center ">
+    <footer
+      className="border-t-[1px] 
+    
+    border-linkleap-border h-[7vh]  bottom-0 w-full px-[24px] text-[14px] pt-[12px] py-[12px] flex justify-between items-center "
+    >
       <ul className="flex gap-[12px]">
         <li className="flex items-center">
           <button

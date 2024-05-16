@@ -47,13 +47,12 @@ CREATE TABLE company_customers (
 
 
 CREATE TABLE customer_logs (
-    log_id SERIAL PRIMARY KEY,
     customer_id INT NOT NULL,
     event_type VARCHAR(50) NOT NULL,
     event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     changed_by VARCHAR(255),
     old_value TEXT,
     new_value TEXT,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 

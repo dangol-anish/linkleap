@@ -4,6 +4,7 @@ import AddCustomer from "../components/Customer/AddCustomer";
 import { Link } from "react-router-dom";
 import { getCurrencySymbol } from "../utils/currencyConverter";
 import Pagination from "../components/Pagination";
+import DraggableScrollContainer from "../utils/DraggableScrollContainer";
 
 const Customer = () => {
   const [customerList, setCustomerList] = useState([]);
@@ -59,14 +60,14 @@ const Customer = () => {
               <AddCustomer getCustomerData={getCustomerData} />
             </div>
 
-            <div className="overflow-x-auto no-scrollbar">
+            <DraggableScrollContainer className="overflow-x-auto no-scrollbar">
               <table className="w-[120%]">
                 <thead className="w-full text-[12px] text-left">
                   <tr className="text-left">
-                    <th className="px-[24px] w-[15%] py-[12px]  text-linkleap-gray font-medium">
+                    <th className="px-[24px] w-[15%] py-[12px] text-linkleap-gray font-medium">
                       Customer
                     </th>
-                    <th className="px-[24px] w-[12%]  py-[12px] text-linkleap-gray font-medium">
+                    <th className="px-[24px] w-[12%] py-[12px] text-linkleap-gray font-medium">
                       Company
                     </th>
                     <th className="px-[24px] w-[12%] py-[12px] text-linkleap-gray font-medium">
@@ -81,7 +82,7 @@ const Customer = () => {
                     <th className="px-[24px] w-[9%] py-[12px] text-linkleap-gray font-medium">
                       Status
                     </th>
-                    <th className="px-[24px] w-[9%]  py-[12px] text-linkleap-gray font-medium"></th>
+                    <th className="px-[24px] w-[9%] py-[12px] text-linkleap-gray font-medium"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,7 +106,7 @@ const Customer = () => {
                       <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
                         {customer.customer_job_title}
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] ">
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
                         {getCurrencySymbol(customer.customer_deal_currency)}
                         {customer.customer_deal_value}
                       </td>
@@ -124,7 +125,7 @@ const Customer = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </DraggableScrollContainer>
           </div>
           <div>
             <Pagination
