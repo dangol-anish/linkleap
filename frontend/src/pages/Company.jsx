@@ -78,7 +78,7 @@ const Company = () => {
               <tbody>
                 {currentItems.map((company, index) => (
                   <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                    <td className="px-[24px] py-[12px] font-medium">
                       <Link
                         to={`/company/${company.company_id}`}
                         className="text-[14px]"

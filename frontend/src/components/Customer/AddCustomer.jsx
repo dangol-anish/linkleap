@@ -3,8 +3,9 @@ import sbAdd from "../../assets/sidebar/sbAdd.svg";
 
 import Modal from "react-modal";
 import { toast } from "react-toastify";
+import { getCurrencySymbol } from "../../utils/currencyConverter";
 
-const AddCustomer = () => {
+const AddCustomer = ({ getCustomerData }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [companyNames, setCompanyNames] = useState([]);
   const [currency, setCurrency] = useState("USD");
@@ -13,7 +14,7 @@ const AddCustomer = () => {
   const [customerData, setCustomerData] = useState({
     dealValueCurrency: "USD",
     customerStatus: "To Contact",
-    companyName: "Anish's Company",
+    customerCompany: "Anish's Company",
     userId: userId,
   });
 
@@ -52,21 +53,6 @@ const AddCustomer = () => {
     getCompanyData();
   }, []);
 
-  const getCurrencySymbol = (currency) => {
-    switch (currency) {
-      case "USD":
-        return "$";
-      case "EUR":
-        return "€";
-      case "GBP":
-        return "£";
-      case "NPR":
-        return "रु";
-      default:
-        return "$";
-    }
-  };
-
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -79,17 +65,37 @@ const AddCustomer = () => {
     e.preventDefault();
 
     console.log(customerData);
-    if (
-      !customerData.customerName ||
-      !customerData.customerEmail ||
-      !customerData.customerJobTitle ||
-      !customerData.customerDealValue ||
-      !customerData.dealValueCurrency ||
-      !customerData.customerDescription ||
-      !customerData.customerCompany ||
-      !customerData.customerStatus
-    ) {
-      toast.error("All input fields are required");
+    let missingFields = [];
+
+    if (!customerData.customerName) {
+      missingFields.push("customerName");
+    }
+    if (!customerData.customerEmail) {
+      missingFields.push("customerEmail");
+    }
+    if (!customerData.customerJobTitle) {
+      missingFields.push("customerJobTitle");
+    }
+    if (!customerData.customerDealValue) {
+      missingFields.push("customerDealValue");
+    }
+    if (!customerData.dealValueCurrency) {
+      missingFields.push("dealValueCurrency");
+    }
+    if (!customerData.customerDescription) {
+      missingFields.push("customerDescription");
+    }
+    if (!customerData.customerCompany) {
+      missingFields.push("customerCompany");
+    }
+    if (!customerData.customerStatus) {
+      missingFields.push("customerStatus");
+    }
+
+    if (missingFields.length > 0) {
+      toast.error(
+        `The following fields are required: ${missingFields.join(", ")}`
+      );
       return;
     }
 
@@ -109,7 +115,7 @@ const AddCustomer = () => {
 
       if (data.success === true) {
         closeModal();
-
+        getCustomerData();
         toast.success("New Customer Added!");
       } else {
         toast.error(data.message);
