@@ -61,7 +61,6 @@ const AddCompany = ({ getCompanyData }) => {
 
   return (
     <>
-      {" "}
       <button
         onClick={() => openModal()}
         className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]"

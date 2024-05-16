@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import sbAdd from "../assets/sidebar/sbAdd.svg";
+import AddCustomer from "../components/Customer/AddCustomer";
 
 const Customer = () => {
   return (
@@ -15,10 +16,7 @@ const Customer = () => {
                 Track, manage, and forecast your customer and orders.
               </p>
             </div>
-            <button className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]">
-              <img src={sbAdd} alt="sbAdd" />
-              <span className="text-[14px] font-medium text-white">Add</span>
-            </button>
+            <AddCustomer />
           </div>
         </section>
       </main>

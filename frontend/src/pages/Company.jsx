@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import sbAdd from "../assets/sidebar/sbAdd.svg";
 import Pagination from "../components/Pagination";
 import AddCompany from "../components/Company/AddCompany";
 import DeleteCompany from "../components/Company/DeleteCompany";

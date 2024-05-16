@@ -29,6 +29,7 @@ const addCustomerData = async (req, res, next) => {
     customerCompany,
     customerJobTitle,
     customerDealValue,
+    dealValueCurrency,
     customerDescription,
     customerStatus,
     userId,
@@ -50,8 +51,8 @@ const addCustomerData = async (req, res, next) => {
     }
 
     const insertNewCustomerQuery = `INSERT INTO customers 
-        (customer_name, customer_email, customer_company, customer_job_title, customer_deal_value, customer_description, customer_status) 
-       VALUES ($1, $2, $3, $4, $5, $6, $7) 
+        (customer_name, customer_email, customer_company, customer_job_title, customer_deal_currency, customer_deal_value, customer_description, customer_status) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
        RETURNING customer_id`;
 
     const insertNewCustomerResult = await pool.query(insertNewCustomerQuery, [
@@ -59,6 +60,7 @@ const addCustomerData = async (req, res, next) => {
       customerEmail,
       customerCompany,
       customerJobTitle,
+      dealValueCurrency,
       customerDealValue,
       customerDescription,
       customerStatus,
