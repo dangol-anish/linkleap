@@ -48,8 +48,6 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
     }));
   };
 
-  console.log(currentCustomerData);
-
   const handleCurrencyChange = (event) => {
     setCurrentCustomerData((prevData) => ({
       ...prevData,
@@ -139,8 +137,6 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
       );
 
       const data = await res.json();
-
-      console.log(data);
 
       if ((data.success = true)) {
         closeModal();

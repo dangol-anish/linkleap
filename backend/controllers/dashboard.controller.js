@@ -47,10 +47,6 @@ const getDashboardData = async (req, res, next) => {
       });
     }
 
-    console.log("Total Deal Value in USD:", totalDealValueUSD);
-    console.log("Total Companies:", totalCompanies);
-    console.log("Total Customers:", totalCustomers);
-
     res.json({
       success: true,
       message: {

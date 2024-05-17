@@ -41,7 +41,6 @@ const Sidebar = () => {
         throw new Error(data.message || "Logout failed. Please try again.");
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.message || "Logout failed. Please try again.");
     }
   };
