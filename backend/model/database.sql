@@ -51,8 +51,7 @@ CREATE TABLE customer_logs (
     event_type VARCHAR(50) NOT NULL,
     event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     changed_by VARCHAR(255),
-    old_value TEXT,
-    new_value TEXT,
+    last_status TEXT,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 

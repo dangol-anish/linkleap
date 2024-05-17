@@ -6,20 +6,13 @@ const { errorHandler } = require("../utils/errorHandler.js");
 async function logCustomerActivity(
   customerId,
   eventType,
-  oldValue,
-  newValue,
+  lastStatus,
   changedBy
 ) {
   const loggerQuery =
-    "insert into customer_logs (customer_id, event_type, old_value, new_value, changed_by) values ($1, $2, $3, $4, $5) ";
+    "insert into customer_logs (customer_id, event_type, last_status, changed_by) values ($1, $2, $3, $4) ";
 
-  await pool.query(loggerQuery, [
-    customerId,
-    eventType,
-    oldValue,
-    newValue,
-    changedBy,
-  ]);
+  await pool.query(loggerQuery, [customerId, eventType, lastStatus, changedBy]);
 }
 
 const addCustomerData = async (req, res, next) => {
@@ -87,15 +80,8 @@ const addCustomerData = async (req, res, next) => {
         success: true,
         message: "New Customer Added!",
       });
+      await logCustomerActivity(customerId, "INSERT", "Customer Added", userId);
     }
-
-    await logCustomerActivity(
-      customerId,
-      "INSERT",
-      null,
-      "Customer Added",
-      userId
-    );
   } catch (error) {
     next(error);
   }
@@ -195,9 +181,102 @@ const getCurrentCustomerData = async (req, res, next) => {
   }
 };
 
+const updateCustomerData = async (req, res, next) => {
+  const {
+    customerName,
+    customerEmail,
+    customerCompany,
+    customerJobTitle,
+    customerDealValue,
+    dealValueCurrency,
+    customerDescription,
+  } = req.body;
+
+  const { customerId, userId } = req.params;
+
+  res.json({
+    customerName,
+    customerEmail,
+    customerCompany,
+    customerJobTitle,
+    customerDealValue,
+    dealValueCurrency,
+    customerDescription,
+    customerId,
+    userId,
+  });
+
+  try {
+    const checkExistingCustomerQuery =
+      "SELECT customer_id FROM customers WHERE customer_email = $1 AND customer_id != $2";
+
+    const checkExistingCustomerResult = await pool.query(
+      checkExistingCustomerQuery,
+      [customerEmail, customerId]
+    );
+
+    if (checkExistingCustomerResult.rowCount > 0) {
+      return next(
+        errorHandler(409, "Customer with this email already exists!")
+      );
+    }
+
+    const updateCustomerQuery =
+      "UPDATE customers SET customer_name=$1, customer_email=$2, customer_company=$3, customer_job_title=$4, customer_deal_currency=$5, customer_deal_value=$6, customer_description=$7 WHERE customer_id=$8";
+
+    const updateCustomerResult = await pool.query(updateCustomerQuery, [
+      customerName,
+      customerEmail,
+      customerCompany,
+      customerJobTitle,
+      dealValueCurrency,
+      customerDealValue,
+      customerDescription,
+      customerId,
+    ]);
+
+    if (updateCustomerResult.rowCount > 0) {
+      const getCompanyIdQuery =
+        "SELECT company_id FROM companies WHERE company_name = $1";
+
+      const getCompanyIdResult = await pool.query(getCompanyIdQuery, [
+        customerCompany,
+      ]);
+
+      if (getCompanyIdResult.rowCount > 0) {
+        const companyId = getCompanyIdResult.rows[0].company_id;
+
+        const updateCustomerToCompanyQuery =
+          "UPDATE company_customers SET company_id=$1 WHERE customer_id=$2";
+
+        await pool.query(updateCustomerToCompanyQuery, [companyId, customerId]);
+
+        await logCustomerActivity(
+          customerId,
+          "UPDATE",
+          "Customer Data Updated",
+          userId
+        );
+
+        return res.status(200).json({
+          success: true,
+          message: "Customer Data Updated!",
+        });
+      } else {
+        return next(errorHandler(404, "Company not found!"));
+      }
+    } else {
+      return next(errorHandler(404, "Customer not found!"));
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addCustomerData,
   getCustomerData,
   deleteCustomerData,
   getCurrentCustomerData,
+  updateCustomerData,
 };
