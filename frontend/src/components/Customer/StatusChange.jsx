@@ -23,21 +23,23 @@ const StatusChange = ({ currentStatus, customerId }) => {
 
   useEffect(() => {
     const changeStatus = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:3000/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+      if (selectedStatus !== currentStatus) {
+        try {
+          const res = await fetch(
+            `http://localhost:3000/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
 
-            credentials: "include",
-          }
-        );
-        const data = await res.json();
-      } catch (error) {
-        console.error("Error", error);
+              credentials: "include",
+            }
+          );
+          const data = await res.json();
+        } catch (error) {
+          console.error("Error", error);
+        }
       }
     };
     changeStatus();

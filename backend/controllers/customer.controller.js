@@ -277,16 +277,30 @@ const changeStatus = async (req, res, next) => {
       await logCustomerActivity(
         customerId,
         "UPDATE",
-        `Customer Status Changed to ${selectedStatus}`,
+        `Changed Status to "${selectedStatus}"`,
         userId
       );
       res.status(200).json({
-        message: "Success",
         message: "Status updated!",
       });
     }
   } catch (error) {
     next(error);
+  }
+};
+
+const getCustomerLogs = async (req, res, next) => {
+  const { customerId } = req.params;
+
+  const customerLogsQuery =
+    "select log_id, event_type, event_timestamp, last_status from customer_logs where customer_id = $1 order by log_id desc";
+
+  const customerLogsResult = await pool.query(customerLogsQuery, [customerId]);
+
+  if (customerLogsResult.rowCount > 0) {
+    res.status(200).json({ success: true, message: customerLogsResult.rows });
+  } else {
+    res.status(404).json({ success: false, message: "No Logs Available" });
   }
 };
 
@@ -297,4 +311,5 @@ module.exports = {
   getCurrentCustomerData,
   updateCustomerData,
   changeStatus,
+  getCustomerLogs,
 };

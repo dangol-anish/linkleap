@@ -6,9 +6,24 @@ import { getCurrencySymbol } from "../utils/currencyConverter";
 
 const CustomerDetails = () => {
   const [currentCustomerData, setCurrentCustomerData] = useState({});
+  const [currentCustomerLogs, setCurrentCustomerLogs] = useState([]);
+
   const { customerId } = useParams();
 
-  console.log(currentCustomerData);
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+
+    const hours = date.getUTCHours().toString().padStart(2, "0");
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+    const day = date.getUTCDate();
+    const month = date.toLocaleString("en-US", {
+      month: "short",
+      timeZone: "UTC",
+    });
+    const year = date.getUTCFullYear();
+
+    return `${hours}:${minutes}    ${month} ${day} ${year}`;
+  }
 
   useEffect(() => {
     const getCurrentCustomerData = async () => {
@@ -37,7 +52,32 @@ const CustomerDetails = () => {
     getCurrentCustomerData();
   }, [customerId]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getCustomerLogs = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/customer/getCustomerLogs/${customerId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await res.json();
+
+        if (data.success === true) {
+          setCurrentCustomerLogs(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error("Error: " + error);
+      }
+    };
+    getCustomerLogs();
+  }, []);
 
   return (
     <>
@@ -98,6 +138,25 @@ const CustomerDetails = () => {
                   {currentCustomerData.customerStatus}
                 </p>
               </label>
+            </div>
+            <div className="w-[60%] py-[16px] px-[32px] flex flex-col gap-[24px]">
+              <h2 className="text-[24px] font-medium">Interactions</h2>
+              <ul className="flex flex-col gap-[12px]">
+                {currentCustomerLogs.map((data) => (
+                  <li
+                    key={data.log_id}
+                    className="flex  bg-[#F4F4F4] py-[12px] px-[24px] gap-[16px] rounded-[12px] w-full"
+                  >
+                    <p className="text-[14px] font-normal text-[#808080]">
+                      {formatTimestamp(data.event_timestamp)}
+                    </p>
+                    <p className="text-[14px] font-medium">{data.event_type}</p>
+                    <p className="text-[14px] font-medium text-linkleap-gray">
+                      {data.last_status}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>

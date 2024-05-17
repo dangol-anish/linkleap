@@ -43,6 +43,7 @@ CREATE TABLE company_customers (
 );
 
 CREATE TABLE customer_logs (
+     log_id SERIAL PRIMARY KEY,
     customer_id INT NOT NULL,
     event_type VARCHAR(50) NOT NULL,
     event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
