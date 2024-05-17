@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 
 const StatusChange = ({ currentStatus, customerId }) => {
   const [selectedStatus, setSelectedStatus] = useState(currentStatus);
+  const userData = JSON.parse(localStorage.getItem("data"));
+  const userId = userData.id;
 
   const handleChange = (event) => {
     setSelectedStatus(event.target.value);
@@ -23,7 +25,7 @@ const StatusChange = ({ currentStatus, customerId }) => {
     const changeStatus = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/customer/changeStatus/${selectedStatus}&${customerId}`,
+          `http://localhost:3000/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
           {
             method: "POST",
             headers: {
@@ -34,7 +36,6 @@ const StatusChange = ({ currentStatus, customerId }) => {
           }
         );
         const data = await res.json();
-        console.log(data);
       } catch (error) {
         console.error("Error", error);
       }

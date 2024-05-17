@@ -7,8 +7,6 @@ const CompanyDetails = () => {
   const [customersList, setCustomersList] = useState([]);
   const { companyId } = useParams();
 
-  console.log(customersList);
-
   useEffect(() => {
     const getCurrentCompanyData = async () => {
       try {

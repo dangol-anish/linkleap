@@ -15,6 +15,6 @@ router.post("/", getCustomerData);
 router.delete("/deleteCustomer/:customerId", deleteCustomerData);
 router.post("/getCurrentCustomerData/:customerId", getCurrentCustomerData);
 router.post("/updateCustomerData/:customerId&:userId", updateCustomerData);
-router.post("/changeStatus/:selectedStatus&:customerId", changeStatus);
+router.post("/changeStatus/:selectedStatus&:customerId&:userId", changeStatus);
 
 module.exports = router;

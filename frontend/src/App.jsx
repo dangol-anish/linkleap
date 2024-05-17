@@ -9,6 +9,7 @@ import Protected from "./components/Protected";
 import Public from "./components/Public";
 import CompanyDetails from "./pages/CompanyDetails";
 import NotFound from "./pages/NotFound";
+import CustomerDetails from "./pages/CustomerDetails";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/customer" element={<Customer />} />
             <Route path="/company" element={<Company />} />
             <Route path="/company/:companyId" element={<CompanyDetails />} />
+            <Route path="/customer/:customerId" element={<CustomerDetails />} />
             <Route path="/user" element={<User />} />
           </Route>
 

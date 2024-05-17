@@ -262,7 +262,7 @@ const updateCustomerData = async (req, res, next) => {
 };
 
 const changeStatus = async (req, res, next) => {
-  const { customerId, selectedStatus } = req.params;
+  const { customerId, selectedStatus, userId } = req.params;
 
   try {
     const updateStatusQuery =
@@ -274,6 +274,12 @@ const changeStatus = async (req, res, next) => {
     ]);
 
     if (updateStatusResult.rowCount > 0) {
+      await logCustomerActivity(
+        customerId,
+        "UPDATE",
+        `Customer Status Changed to ${selectedStatus}`,
+        userId
+      );
       res.status(200).json({
         message: "Success",
         message: "Status updated!",
