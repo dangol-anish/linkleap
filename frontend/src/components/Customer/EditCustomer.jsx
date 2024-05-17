@@ -9,8 +9,16 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
   const userId = userData.id;
 
   const [currentCustomerData, setCurrentCustomerData] = useState({
+    customerName: "",
+    customerEmail: "",
+    customerJobTitle: "",
+    customerDealValue: "",
     dealValueCurrency: "USD",
+    customerDescription: "",
+    customerCompany: "",
+    customerStatus: "",
   });
+
   const [companyNames, setCompanyNames] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -93,6 +101,21 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    if (
+      !currentCustomerData.customerName ||
+      !currentCustomerData.customerEmail ||
+      !currentCustomerData.customerJobTitle ||
+      !currentCustomerData.customerDealValue ||
+      !currentCustomerData.dealValueCurrency ||
+      !currentCustomerData.customerDescription ||
+      !currentCustomerData.customerCompany ||
+      !currentCustomerData.customerStatus
+    ) {
+      toast.error("All input fields are required");
+      return;
+    }
+
     try {
       const res = await fetch(
         `http://localhost:3000/api/customer/updateCustomerData/${customerId}&${userId}`,

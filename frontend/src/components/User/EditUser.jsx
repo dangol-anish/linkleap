@@ -6,8 +6,11 @@ import { toast } from "react-toastify";
 const EditUser = ({ userId, getUserData }) => {
   const [currentUserData, setCurrentUserData] = useState({
     userPassword: "",
+    userDisplayName: "",
+    userEmail: "",
+    userName: "",
+    userType: "",
   });
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -18,6 +21,10 @@ const EditUser = ({ userId, getUserData }) => {
   const closeModal = () => {
     setCurrentUserData({
       userPassword: "",
+      userDisplayName: "",
+      userEmail: "",
+      userName: "",
+      userType: "",
     });
     setModalIsOpen(false);
   };
@@ -55,6 +62,15 @@ const EditUser = ({ userId, getUserData }) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    if (
+      !currentUserData.userName ||
+      !currentUserData.userDisplayName ||
+      !currentUserData.userEmail ||
+      !currentUserData.userType
+    ) {
+      toast.error("All input fields are required");
+      return;
+    }
     try {
       const res = await fetch(
         `http://localhost:3000/api/user/updateUserData/${userId}`,
