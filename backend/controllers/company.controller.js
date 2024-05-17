@@ -175,10 +175,39 @@ const updateCompanyData = async (req, res, next) => {
   }
 };
 
+const customersInCompany = async (req, res, next) => {
+  const { companyId } = req.params;
+
+  try {
+    const getCustomersInCompanyQuery =
+      "select customer_name, customer_email from customers join company_customers on customers.customer_id = company_customers.customer_id join companies on companies.company_id = company_customers.company_id where companies.company_id = $1";
+
+    const getCustomersInCompanyResult = await pool.query(
+      getCustomersInCompanyQuery,
+      [companyId]
+    );
+
+    if (getCustomersInCompanyResult.rowCount > 0) {
+      res.status(200).json({
+        success: true,
+        message: getCustomersInCompanyResult.rows,
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Customers not Found!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getCompanyData,
   addCompanyData,
   deleteCompanyData,
   getCurrentCompanyData,
   updateCompanyData,
+  customersInCompany,
 };

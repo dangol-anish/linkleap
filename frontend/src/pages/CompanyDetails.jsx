@@ -4,9 +4,10 @@ import Sidebar from "../components/Sidebar";
 
 const CompanyDetails = () => {
   const [currentCompanyData, setCurrentCompanyData] = useState({});
+  const [customersList, setCustomersList] = useState([]);
   const { companyId } = useParams();
 
-  console.log(currentCompanyData);
+  console.log(customersList);
 
   useEffect(() => {
     const getCurrentCompanyData = async () => {
@@ -34,6 +35,33 @@ const CompanyDetails = () => {
     };
     getCurrentCompanyData();
   }, [companyId]);
+
+  useEffect(() => {
+    const getCustomersInCompany = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/company/customersInCompany/${companyId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await res.json();
+
+        if (data.success === true) {
+          setCustomersList(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error("Error: " + error);
+      }
+    };
+    getCustomersInCompany();
+  }, []);
 
   return (
     <>
@@ -80,6 +108,18 @@ const CompanyDetails = () => {
             </div>
             <div className="w-[60%] py-[16px] px-[32px] flex flex-col gap-[24px]">
               <h2 className="text-[24px] font-medium">People</h2>
+              <ul className="flex flex-col gap-[12px]">
+                {customersList.map((data) => (
+                  <li className="flex flex-col gap-[6px] w-full">
+                    <p className="text-[14px] font-medium">
+                      {data.customer_name}
+                    </p>
+                    <p className="text-[14px] font-medium text-linkleap-gray">
+                      {data.customer_email}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
