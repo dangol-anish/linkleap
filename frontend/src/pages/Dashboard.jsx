@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import sbAdd from "../assets/sidebar/sbAdd.svg";
 
 const Dashboard = () => {
+  const [dashboardData, setDashboardData] = useState({
+    totalCompanies: 0,
+    totalCustomers: 0,
+    totalDealValueUSD: 0,
+  });
+
+  const getDashboardData = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/dashboard/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      setDashboardData(data.message);
+    } catch (error) {
+      toast.error("Error", error);
+    }
+  };
+
+  useEffect(() => {
+    getDashboardData();
+  }, []);
   return (
     <>
       <main className="flex min-h-screen">
@@ -15,10 +40,22 @@ const Dashboard = () => {
                 Track, manage, and forecast your customer and orders.
               </p>
             </div>
-            <button className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]">
-              <img src={sbAdd} alt="sbAdd" />
-              <span className="text-[14px] font-medium text-white">Add</span>
-            </button>
+          </div>
+          <div className="w-full h-[16%] flex justify-around">
+            <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
+              <p className="text-[16px] font-medium">Total Customers</p>
+              <p className="text-[36px]">{dashboardData.totalCustomers}</p>
+            </div>
+            <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
+              <p className="text-[16px] font-medium">Total Companies</p>
+              <p className="text-[36px]">{dashboardData.totalCompanies}</p>
+            </div>
+            <div className="w-[30%] border rounded-[8px] h-full p-[24px] flex flex-col gap-[24px] justify-center">
+              <p className="text-[16px] font-medium">Deal Value</p>
+              <p className="text-[36px]">
+                ${dashboardData.totalDealValueUSD.toFixed(2)}
+              </p>
+            </div>
           </div>
         </section>
       </main>

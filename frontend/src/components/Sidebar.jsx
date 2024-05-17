@@ -53,10 +53,10 @@ const Sidebar = () => {
             <img src={logo} className="h-[32px] w-[32px]" alt="" />
             <p className="text-[20px] font-medium">LinkLeap</p>
           </div>
-          <ul className="flex flex-col gap-[4px]">
+          <ul className="flex flex-col gap-[4px] text-linkleap-gray">
             <li>
               <Link
-                className={`flex gap-[12px] px-[8px] py-[8px] items-center cursor-pointer rounded-[6px] ${
+                className={`flex gap-[12px] px-[8px] py-[8px] items-center  cursor-pointer rounded-[6px] ${
                   isActive("/dashboard") && "bg-[#F9FAFB]"
                 }`}
                 to="/dashboard"

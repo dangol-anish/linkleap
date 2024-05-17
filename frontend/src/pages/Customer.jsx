@@ -64,7 +64,7 @@ const Customer = () => {
             </div>
 
             <DraggableScrollContainer className="overflow-x-auto no-scrollbar">
-              <table className="w-[120%]">
+              <table className="w-[110%]">
                 <thead className="w-full text-[12px] text-left">
                   <tr className="text-left">
                     <th className="px-[24px] w-[15%] py-[12px] text-linkleap-gray font-medium">
@@ -79,7 +79,7 @@ const Customer = () => {
                     <th className="px-[24px] w-[12%] py-[12px] text-linkleap-gray font-medium">
                       Deal Value
                     </th>
-                    <th className="px-[24px] w-[15%] py-[12px] text-linkleap-gray font-medium">
+                    <th className="px-[24px] w-[12%] py-[12px] text-linkleap-gray font-medium">
                       About
                     </th>
                     <th className="px-[24px] w-[9%] py-[12px] text-linkleap-gray font-medium">
@@ -91,13 +91,13 @@ const Customer = () => {
                 <tbody>
                   {currentItems.map((customer, index) => (
                     <tr
-                      className="odd:bg-[#F9FAFB] w-fit"
+                      className="odd:bg-[#F9FAFB] w-fit text-linkleap-text"
                       key={customer.customer_id}
                     >
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
+                      <td className="px-[24px] py-[12px]  font-medium">
                         <Link
                           to={`/customer/${customer.customer_id}`}
-                          className="text-[14px]"
+                          className="text-[14px] "
                         >
                           {customer.customer_name}
                         </Link>
@@ -106,27 +106,27 @@ const Customer = () => {
                           {customer.customer_email}
                         </span>
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         {customer.customer_company}
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         {customer.customer_job_title}
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         {getCurrencySymbol(customer.customer_deal_currency)}
                         {customer.customer_deal_value}
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         {customer.customer_description}
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                      <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         <StatusChange
                           currentStatus={customer.customer_status}
                           customerId={customer.customer_id}
                           getCustomerData={getCustomerData}
                         />
                       </td>
-                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
+                      <td className="px-[24px] py-[12px]  font-medium text-[14px] flex justify-center items-center">
                         <DeleteCustomer
                           customerId={customer.customer_id}
                           getCustomerData={getCustomerData}

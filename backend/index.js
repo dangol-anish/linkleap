@@ -13,6 +13,7 @@ const authRouter = require("./routes/auth.router.js");
 const userRouter = require("./routes/user.route.js");
 const companyRouter = require("./routes/company.route.js");
 const customerRouter = require("./routes/customer.route.js");
+const dashboardData = require("./routes/dashboard.route.js");
 
 // middlewares
 app.use(
@@ -29,6 +30,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", verifyToken, userRouter);
 app.use("/api/company", verifyToken, companyRouter);
 app.use("/api/customer", verifyToken, customerRouter);
+app.use("/api/dashboard", verifyToken, dashboardData);
 app.get("/verifyUserToken", verifyToken, verifyUserToken);
 
 app.use((err, req, res, next) => {
