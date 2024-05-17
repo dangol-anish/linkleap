@@ -6,7 +6,6 @@ const { errorHandler } = require("../utils/errorHandler.js");
 const getCompanyData = async (req, res, next) => {
   try {
     const getCompanyDataQuery = "select * from companies order by company_id";
-
     const getCompanyDataResult = await pool.query(getCompanyDataQuery);
 
     if (getCompanyDataResult.rowCount > 0) {
@@ -16,7 +15,7 @@ const getCompanyData = async (req, res, next) => {
       });
     } else {
       res.status(200).json({
-        message: "No companies available",
+        message: [],
         success: true,
       });
     }

@@ -35,6 +35,7 @@ const User = () => {
       });
 
       const data = await res.json();
+
       setUserList(data.message);
     } catch (error) {
       toast.error("Error", error);

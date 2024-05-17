@@ -222,6 +222,8 @@ const getCustomerData = async (req, res, next) => {
 
 const deleteCustomerData = async (req, res, next) => {
   const { customerId } = req.params;
+
+  console.log(customerId);
   try {
     const getCompanyIdQuery = `
       SELECT company_id
