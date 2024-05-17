@@ -8,6 +8,7 @@ import { getCurrencySymbol } from "../utils/currencyConverter";
 import Pagination from "../components/Pagination";
 import DraggableScrollContainer from "../utils/DraggableScrollContainer";
 import StatusChange from "../components/Customer/StatusChange";
+import { textLimiter } from "../utils/textLimiter";
 
 const Customer = () => {
   const [customerList, setCustomerList] = useState([]);
@@ -117,7 +118,7 @@ const Customer = () => {
                         {customer.customer_deal_value}
                       </td>
                       <td className="px-[24px] py-[12px]  font-medium text-[14px]">
-                        {customer.customer_description}
+                        {textLimiter(customer.customer_description)}
                       </td>
                       <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         <StatusChange

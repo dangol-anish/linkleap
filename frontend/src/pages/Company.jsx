@@ -5,6 +5,7 @@ import AddCompany from "../components/Company/AddCompany";
 import DeleteCompany from "../components/Company/DeleteCompany";
 import EditCompany from "../components/Company/EditCompany";
 import { Link } from "react-router-dom";
+import { textLimiter } from "../utils/textLimiter";
 
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
@@ -96,11 +97,11 @@ const Company = () => {
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
                       <span className="text-[14px]">
-                        {company.company_description_title}
+                        {textLimiter(company.company_description_title)}
                       </span>
                       <br />
                       <span className="text-[14px] text-linkleap-gray">
-                        {company.company_description}
+                        {textLimiter(company.company_description)}
                       </span>
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">

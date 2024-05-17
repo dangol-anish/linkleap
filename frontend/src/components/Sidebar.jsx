@@ -9,6 +9,7 @@ import avatar from "../assets/avatar.svg";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { textLimiter } from "../utils/textLimiter";
 
 import { toast } from "react-toastify";
 
@@ -106,8 +107,10 @@ const Sidebar = () => {
         <section className="flex justify-between px-[16px] py-[24px] border-t-[1px] border-linkleap-border items-center">
           <div className="flex gap-[12px] px-[8px] justify-between">
             <div className="text-[14px]">
-              <p className="font-medium">{userData.user_display_name}</p>
-              <p>{userData.user_email}</p>
+              <p className="font-medium">
+                {textLimiter(userData.user_display_name)}
+              </p>
+              <p>{textLimiter(userData.user_email)}</p>
             </div>
           </div>
 

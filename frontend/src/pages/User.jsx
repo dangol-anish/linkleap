@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "../components/Pagination";
-
+import { textLimiter } from "../utils/textLimiter";
 import EditUser from "../components/User/EditUser";
 import AddUser from "../components/User/AddUser";
 import DeleteUser from "../components/User/DeleteUser";
@@ -103,7 +103,7 @@ const User = () => {
                       {user.user_type}
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      {user.user_name}
+                      {textLimiter(user.user_name)}
                     </td>
                     <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
                       *******
