@@ -15,7 +15,7 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
     customerDealValue: "",
     dealValueCurrency: "USD",
     customerDescription: "",
-    customerCompany: "",
+    customerCompanyId: "",
     customerStatus: "",
   });
 
@@ -35,7 +35,7 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
       customerDealValue: "",
       dealValueCurrency: "USD",
       customerDescription: "",
-      customerCompany: "",
+      customerCompanyId: "",
       customerStatus: "",
     });
     setModalIsOpen(false);
@@ -47,6 +47,8 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  console.log(currentCustomerData);
 
   const handleCurrencyChange = (event) => {
     setCurrentCustomerData((prevData) => ({
@@ -73,7 +75,7 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
         });
         const data = await res.json();
 
-        const companyName = data.message.map((company) => company.company_name);
+        const companyName = data.message;
         setCompanyNames(companyName);
       } catch (error) {
         console.error("Error", error);
@@ -116,7 +118,7 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
       !currentCustomerData.customerDealValue ||
       !currentCustomerData.dealValueCurrency ||
       !currentCustomerData.customerDescription ||
-      !currentCustomerData.customerCompany ||
+      !currentCustomerData.customerCompanyId ||
       !currentCustomerData.customerStatus
     ) {
       toast.error("All input fields are required");
@@ -266,17 +268,18 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
                 <p className="text-[14px] font-medium">Company</p>
                 <select
                   className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] custom-select cursor-pointer"
-                  name="customerCompany"
-                  id="customerCompany"
+                  name="customerCompanyId"
+                  id="customerCompanyId"
                   onChange={handleChange}
-                  value={currentCustomerData.customerCompany}
                 >
-                  <option className="">
-                    {currentCustomerData.customerCompany}
-                  </option>
+                  <option value="">Select a Company</option>
                   {companyNames.map((companyName) => (
-                    <option key={companyName} className="" value={companyName}>
-                      {companyName}
+                    <option
+                      key={companyName.company_id}
+                      className=""
+                      value={companyName.company_id}
+                    >
+                      {companyName.company_name}
                     </option>
                   ))}
                 </select>

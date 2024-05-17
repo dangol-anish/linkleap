@@ -399,11 +399,100 @@ const getCurrentCustomerData = async (req, res, next) => {
 //   }
 // };
 
+// const updateCustomerData = async (req, res, next) => {
+//   const {
+//     customerName,
+//     customerEmail,
+//     customerCompanyId,
+//     customerJobTitle,
+//     customerDealValue,
+//     dealValueCurrency,
+//     customerDescription,
+//   } = req.body;
+
+//   const { customerId, userId } = req.params;
+
+//   try {
+//     const checkExistingCustomerQuery =
+//       "SELECT customer_id FROM customers WHERE customer_email = $1 AND customer_id != $2";
+
+//     const checkExistingCustomerResult = await pool.query(
+//       checkExistingCustomerQuery,
+//       [customerEmail, customerId]
+//     );
+
+//     if (checkExistingCustomerResult.rowCount > 0) {
+//       return next(
+//         errorHandler(409, "Customer with this email already exists!")
+//       );
+//     }
+
+//     const getOldCompanyIdQuery = `
+//       SELECT company_id
+//       FROM company_customers
+//       WHERE customer_id = $1
+//     `;
+//     const getOldCompanyIdResult = await pool.query(getOldCompanyIdQuery, [
+//       customerId,
+//     ]);
+//     const oldCompanyId = getOldCompanyIdResult.rows[0].company_id;
+
+//     const updateCustomerQuery =
+//       "UPDATE customers SET customer_name=$1, customer_email=$2, customer_company_id=$3, customer_job_title=$4, customer_deal_currency=$5, customer_deal_value=$6, customer_description=$7 WHERE customer_id=$8";
+
+//     const updateCustomerResult = await pool.query(updateCustomerQuery, [
+//       customerName,
+//       customerEmail,
+//       customerCompanyId,
+//       customerJobTitle,
+//       dealValueCurrency,
+//       customerDealValue,
+//       customerDescription,
+//       customerId,
+//     ]);
+
+//     if (updateCustomerResult.rowCount > 0) {
+//  const newCompanyId = customerCompanyId;
+//         if (oldCompanyId !== newCompanyId) {
+//           const updateCustomerToCompanyQuery =
+//             "UPDATE company_customers SET company_id=$1 WHERE customer_id=$2";
+
+//           await pool.query(updateCustomerToCompanyQuery, [
+//             newCompanyId,
+//             customerId,
+//           ]);
+//         }
+
+//         await updateCompanyEmployeeCount(oldCompanyId);
+//         await updateCompanyEmployeeCount(newCompanyId);
+
+//         await logCustomerActivity(
+//           customerId,
+//           "UPDATE",
+//           "Customer Data Updated",
+//           userId
+//         );
+
+//         return res.status(200).json({
+//           success: true,
+//           message: "Customer Data Updated!",
+//         });
+//       } else {
+//         return next(errorHandler(404, "Company not found!"));
+//       }
+//     } else {
+//       return next(errorHandler(404, "Customer not found!"));
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 const updateCustomerData = async (req, res, next) => {
   const {
     customerName,
     customerEmail,
-    customerCompany,
+    customerCompanyId,
     customerJobTitle,
     customerDealValue,
     dealValueCurrency,
@@ -438,60 +527,44 @@ const updateCustomerData = async (req, res, next) => {
     const oldCompanyId = getOldCompanyIdResult.rows[0].company_id;
 
     const updateCustomerQuery =
-      "UPDATE customers SET customer_name=$1, customer_email=$2, customer_company=$3, customer_job_title=$4, customer_deal_currency=$5, customer_deal_value=$6, customer_description=$7 WHERE customer_id=$8";
+      "UPDATE customers SET customer_name=$1, customer_email=$2, customer_company_id=$3, customer_job_title=$4, customer_deal_currency=$5, customer_deal_value=$6, customer_description=$7 WHERE customer_id=$8";
 
     const updateCustomerResult = await pool.query(updateCustomerQuery, [
       customerName,
       customerEmail,
-      customerCompany,
+      customerCompanyId,
       customerJobTitle,
-      dealValueCurrency,
+      dealValueCurrency, // Corrected variable name
       customerDealValue,
       customerDescription,
       customerId,
     ]);
 
-    if (updateCustomerResult.rowCount > 0) {
-      const getCompanyIdQuery =
-        "SELECT company_id FROM companies WHERE company_name = $1";
+    const newCompanyId = customerCompanyId;
+    if (oldCompanyId !== newCompanyId) {
+      const updateCustomerToCompanyQuery =
+        "UPDATE company_customers SET company_id=$1 WHERE customer_id=$2";
 
-      const getCompanyIdResult = await pool.query(getCompanyIdQuery, [
-        customerCompany,
+      await pool.query(updateCustomerToCompanyQuery, [
+        newCompanyId,
+        customerId,
       ]);
-
-      if (getCompanyIdResult.rowCount > 0) {
-        const newCompanyId = getCompanyIdResult.rows[0].company_id;
-
-        if (oldCompanyId !== newCompanyId) {
-          const updateCustomerToCompanyQuery =
-            "UPDATE company_customers SET company_id=$1 WHERE customer_id=$2";
-
-          await pool.query(updateCustomerToCompanyQuery, [
-            newCompanyId,
-            customerId,
-          ]);
-        }
-
-        await updateCompanyEmployeeCount(oldCompanyId);
-        await updateCompanyEmployeeCount(newCompanyId);
-
-        await logCustomerActivity(
-          customerId,
-          "UPDATE",
-          "Customer Data Updated",
-          userId
-        );
-
-        return res.status(200).json({
-          success: true,
-          message: "Customer Data Updated!",
-        });
-      } else {
-        return next(errorHandler(404, "Company not found!"));
-      }
-    } else {
-      return next(errorHandler(404, "Customer not found!"));
     }
+
+    await updateCompanyEmployeeCount(oldCompanyId);
+    await updateCompanyEmployeeCount(newCompanyId);
+
+    await logCustomerActivity(
+      customerId,
+      "UPDATE",
+      "Customer Data Updated",
+      userId
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Customer Data Updated!",
+    });
   } catch (error) {
     next(error);
   }
