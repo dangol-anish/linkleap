@@ -269,7 +269,7 @@ const updateCustomerData = async (req, res, next) => {
       customerEmail,
       customerCompanyId,
       customerJobTitle,
-      dealValueCurrency, // Corrected variable name
+      dealValueCurrency,
       customerDealValue,
       customerDescription,
       customerId,
