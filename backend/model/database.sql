@@ -13,7 +13,6 @@ CREATE TABLE users (
     user_type VARCHAR(50) 
 );
 
-
 CREATE TABLE companies (
     company_id SERIAL PRIMARY KEY,
     company_name VARCHAR(255) NOT NULL,
@@ -22,7 +21,6 @@ CREATE TABLE companies (
     company_description_title VARCHAR(255),
     company_description TEXT
 );
-
 
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
@@ -36,7 +34,6 @@ CREATE TABLE customers (
     customer_status VARCHAR(50)
 );
 
-
 CREATE TABLE company_customers (
     company_id INT NOT NULL,
     customer_id INT NOT NULL,
@@ -44,7 +41,6 @@ CREATE TABLE company_customers (
     FOREIGN KEY (company_id) REFERENCES companies(company_id) ON DELETE CASCADE,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
-
 
 CREATE TABLE customer_logs (
     customer_id INT NOT NULL,

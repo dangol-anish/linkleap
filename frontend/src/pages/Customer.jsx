@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getCurrencySymbol } from "../utils/currencyConverter";
 import Pagination from "../components/Pagination";
 import DraggableScrollContainer from "../utils/DraggableScrollContainer";
+import StatusChange from "../components/Customer/StatusChange";
 
 const Customer = () => {
   const [customerList, setCustomerList] = useState([]);
@@ -89,7 +90,10 @@ const Customer = () => {
                 </thead>
                 <tbody>
                   {currentItems.map((customer, index) => (
-                    <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
+                    <tr
+                      className="odd:bg-[#F9FAFB] w-fit"
+                      key={customer.customer_id}
+                    >
                       <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
                         <Link
                           to={`/customer/${customer.customer_id}`}
@@ -116,7 +120,11 @@ const Customer = () => {
                         {customer.customer_description}
                       </td>
                       <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                        {customer.customer_status}
+                        <StatusChange
+                          currentStatus={customer.customer_status}
+                          customerId={customer.customer_id}
+                          getCustomerData={getCustomerData}
+                        />
                       </td>
                       <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
                         <DeleteCustomer

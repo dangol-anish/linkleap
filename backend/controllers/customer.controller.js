@@ -194,18 +194,6 @@ const updateCustomerData = async (req, res, next) => {
 
   const { customerId, userId } = req.params;
 
-  res.json({
-    customerName,
-    customerEmail,
-    customerCompany,
-    customerJobTitle,
-    customerDealValue,
-    dealValueCurrency,
-    customerDescription,
-    customerId,
-    userId,
-  });
-
   try {
     const checkExistingCustomerQuery =
       "SELECT customer_id FROM customers WHERE customer_email = $1 AND customer_id != $2";
@@ -273,10 +261,34 @@ const updateCustomerData = async (req, res, next) => {
   }
 };
 
+const changeStatus = async (req, res, next) => {
+  const { customerId, selectedStatus } = req.params;
+
+  try {
+    const updateStatusQuery =
+      "update customers set customer_status = $1 where customer_id=$2";
+
+    const updateStatusResult = await pool.query(updateStatusQuery, [
+      selectedStatus,
+      customerId,
+    ]);
+
+    if (updateStatusResult.rowCount > 0) {
+      res.status(200).json({
+        message: "Success",
+        message: "Status updated!",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addCustomerData,
   getCustomerData,
   deleteCustomerData,
   getCurrentCustomerData,
   updateCustomerData,
+  changeStatus,
 };

@@ -94,7 +94,6 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      console.log(currentCustomerData);
       const res = await fetch(
         `http://localhost:3000/api/customer/updateCustomerData/${customerId}&${userId}`,
         {
