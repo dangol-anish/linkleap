@@ -122,7 +122,10 @@ const deleteCompanyData = async (req, res, next) => {
       });
     }
   } catch (error) {
-    next(error);
+    res.status(200).json({
+      success: false,
+      message: "Customers are assigned to this company!",
+    });
   }
 };
 

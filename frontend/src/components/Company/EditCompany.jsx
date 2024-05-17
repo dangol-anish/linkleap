@@ -4,7 +4,12 @@ import Modal from "react-modal";
 import { toast } from "react-toastify";
 
 const EditCompany = ({ companyId, getCompanyData }) => {
-  const [currentCompanyData, setCurrentCompanyData] = useState({});
+  const [currentCompanyData, setCurrentCompanyData] = useState({
+    companyName: "",
+    companyWebsite: "",
+    companyDescTitle: "",
+    companyDesc: "",
+  });
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -13,7 +18,12 @@ const EditCompany = ({ companyId, getCompanyData }) => {
   };
 
   const closeModal = () => {
-    setCurrentCompanyData({});
+    setCurrentCompanyData({
+      companyName: "",
+      companyWebsite: "",
+      companyDescTitle: "",
+      companyDesc: "",
+    });
     setModalIsOpen(false);
   };
   const handleChange = (e) => {
@@ -49,6 +59,16 @@ const EditCompany = ({ companyId, getCompanyData }) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    if (
+      !currentCompanyData.companyName ||
+      !currentCompanyData.companyDesc ||
+      !currentCompanyData.companyDescTitle ||
+      !currentCompanyData.companyWebsite
+    ) {
+      toast.error("All input fields are required");
+      return;
+    }
+
     try {
       const res = await fetch(
         `http://localhost:3000/api/company/updateCompanyData/${companyId}`,

@@ -43,7 +43,7 @@ const AddCustomer = ({ getCustomerData }) => {
         });
         const data = await res.json();
 
-        const companyName = data.message.map((company) => company.company_name);
+        const companyName = data.message;
         setCompanyNames(companyName);
       } catch (error) {
         console.error("Error", error);
@@ -70,7 +70,7 @@ const AddCustomer = ({ getCustomerData }) => {
       !customerData.customerDealValue ||
       !customerData.dealValueCurrency ||
       !customerData.customerDescription ||
-      !customerData.customerCompany ||
+      !customerData.customerCompanyId ||
       !customerData.customerStatus
     ) {
       toast.error("All input fields are required");
@@ -213,13 +213,17 @@ const AddCustomer = ({ getCustomerData }) => {
                 <select
                   className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] custom-select cursor-pointer"
                   name=""
-                  id="customerCompany"
+                  id="customerCompanyId"
                   onChange={handleChange}
                 >
                   <option className="">Select a Company</option>
                   {companyNames.map((companyName) => (
-                    <option key={companyName} className="" value={companyName}>
-                      {companyName}
+                    <option
+                      key={companyName.company_id}
+                      className=""
+                      value={companyName.company_id}
+                    >
+                      {companyName.company_name}
                     </option>
                   ))}
                 </select>

@@ -104,7 +104,7 @@ const addCustomerData = async (req, res, next) => {
   const {
     customerName,
     customerEmail,
-    customerCompany,
+    customerCompanyId,
     customerJobTitle,
     customerDealValue,
     dealValueCurrency,
@@ -129,14 +129,14 @@ const addCustomerData = async (req, res, next) => {
     }
 
     const insertNewCustomerQuery = `INSERT INTO customers 
-        (customer_name, customer_email, customer_company, customer_job_title, customer_deal_currency, customer_deal_value, customer_description, customer_status) 
+        (customer_name, customer_email, customer_company_id, customer_job_title, customer_deal_currency, customer_deal_value, customer_description, customer_status) 
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
        RETURNING customer_id`;
 
     const insertNewCustomerResult = await pool.query(insertNewCustomerQuery, [
       customerName,
       customerEmail,
-      customerCompany,
+      customerCompanyId,
       customerJobTitle,
       dealValueCurrency,
       customerDealValue,
@@ -147,21 +147,15 @@ const addCustomerData = async (req, res, next) => {
     const customerId = insertNewCustomerResult.rows[0].customer_id;
 
     if (insertNewCustomerResult.rowCount > 0) {
-      const getCompanyIdQuery =
-        "SELECT company_id FROM companies WHERE company_name = $1";
-
-      const getCompanyIdResult = await pool.query(getCompanyIdQuery, [
-        customerCompany,
-      ]);
-
-      const companyId = getCompanyIdResult.rows[0].company_id;
-
       const assignCustomerToCompanyQuery =
         "INSERT INTO company_customers (company_id, customer_id) VALUES ($1, $2)";
 
-      await pool.query(assignCustomerToCompanyQuery, [companyId, customerId]);
+      await pool.query(assignCustomerToCompanyQuery, [
+        customerCompanyId,
+        customerId,
+      ]);
 
-      await updateCompanyEmployeeCount(companyId);
+      await updateCompanyEmployeeCount(customerCompanyId);
 
       res.status(200).json({
         success: true,
@@ -176,7 +170,12 @@ const addCustomerData = async (req, res, next) => {
 
 const getCustomerData = async (req, res, next) => {
   try {
-    const getCustomerDataQuery = "select * from customers order by customer_id";
+    const getCustomerDataQuery = `
+      SELECT customers.*, companies.company_name 
+      FROM customers 
+      INNER JOIN companies ON customers.customer_company_id = companies.company_id 
+      ORDER BY customers.customer_id
+    `;
 
     const getCustomerDataResult = await pool.query(getCustomerDataQuery);
 
@@ -271,8 +270,12 @@ const deleteCustomerData = async (req, res, next) => {
 const getCurrentCustomerData = async (req, res, next) => {
   const { customerId } = req.params;
   try {
-    const getCurrentCustomerDataQuery =
-      "select * from customers where customer_id = $1 ";
+    const getCurrentCustomerDataQuery = `
+      SELECT customers.*, companies.company_name 
+      FROM customers 
+      INNER JOIN companies ON customers.customer_company_id = companies.company_id 
+      WHERE customers.customer_id = $1
+    `;
 
     const getCurrentCustomerDataResult = await pool.query(
       getCurrentCustomerDataQuery,
@@ -284,17 +287,17 @@ const getCurrentCustomerData = async (req, res, next) => {
       const {
         customer_name,
         customer_email,
-        customer_company,
         customer_job_title,
         customer_deal_value,
         customer_deal_currency,
         customer_description,
         customer_status,
+        company_name, // Include company_name from the query result
       } = customerData;
       const formattedData = {
         customerName: customer_name,
         customerEmail: customer_email,
-        customerCompany: customer_company,
+        customerCompany: company_name, // Use company_name here
         customerJobTitle: customer_job_title,
         customerDealValue: customer_deal_value,
         dealValueCurrency: customer_deal_currency,
@@ -307,7 +310,7 @@ const getCurrentCustomerData = async (req, res, next) => {
       });
     } else {
       res.status(200).json({
-        message: "This customer doesnt exist!",
+        message: "This customer doesn't exist!",
         success: true,
       });
     }

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { toast } from "react-toastify";
 import { getCurrencySymbol } from "../utils/currencyConverter";
 
 const CustomerDetails = () => {

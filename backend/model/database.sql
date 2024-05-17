@@ -22,11 +22,23 @@ CREATE TABLE companies (
     company_description TEXT
 );
 
+-- CREATE TABLE customers (
+--     customer_id SERIAL PRIMARY KEY,
+--     customer_name VARCHAR(255) NOT NULL,
+--     customer_email VARCHAR(255) UNIQUE NOT NULL,
+--     customer_company VARCHAR(255),
+--     customer_job_title VARCHAR(255),
+--     customer_deal_value BIGINT,
+--     customer_deal_currency VARCHAR(3),
+--     customer_description TEXT,
+--     customer_status VARCHAR(50)
+-- );
+
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     customer_name VARCHAR(255) NOT NULL,
     customer_email VARCHAR(255) UNIQUE NOT NULL,
-    customer_company VARCHAR(255),
+    customer_company_id INT REFERENCES companies(company_id) ON DELETE RESTRICT,
     customer_job_title VARCHAR(255),
     customer_deal_value BIGINT,
     customer_deal_currency VARCHAR(3),

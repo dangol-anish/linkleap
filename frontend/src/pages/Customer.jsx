@@ -107,7 +107,7 @@ const Customer = () => {
                         </span>
                       </td>
                       <td className="px-[24px] py-[12px]  font-medium text-[14px]">
-                        {customer.customer_company}
+                        {customer.company_name}
                       </td>
                       <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                         {customer.customer_job_title}

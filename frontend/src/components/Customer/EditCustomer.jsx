@@ -29,7 +29,14 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
 
   const closeModal = () => {
     setCurrentCustomerData({
+      customerName: "",
+      customerEmail: "",
+      customerJobTitle: "",
+      customerDealValue: "",
       dealValueCurrency: "USD",
+      customerDescription: "",
+      customerCompany: "",
+      customerStatus: "",
     });
     setModalIsOpen(false);
   };
