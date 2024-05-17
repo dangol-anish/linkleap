@@ -19,7 +19,7 @@ const getUserData = async (req, res, next) => {
       });
     } else {
       res.status(200).json({
-        message: "No users available",
+        message: [],
         success: true,
       });
     }
