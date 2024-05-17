@@ -14,8 +14,6 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
   const [companyNames, setCompanyNames] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  console.log(currentCustomerData);
-
   const openModal = () => {
     setModalIsOpen(true);
     getCurrentCustomerData();

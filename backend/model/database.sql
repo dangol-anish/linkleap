@@ -30,7 +30,7 @@ CREATE TABLE customers (
     customer_email VARCHAR(255) UNIQUE NOT NULL,
     customer_company VARCHAR(255),
     customer_job_title VARCHAR(255),
-    customer_deal_value DECIMAL(10, 2),
+    customer_deal_value BIGINT,
     customer_deal_currency VARCHAR(3),
     customer_description TEXT,
     customer_status VARCHAR(50)
