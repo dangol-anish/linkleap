@@ -241,7 +241,9 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
                   onChange={handleChange}
                   value={currentCustomerData.customerCompany}
                 >
-                  <option className="">Select a Company</option>
+                  <option className="">
+                    {currentCustomerData.customerCompany}
+                  </option>
                   {companyNames.map((companyName) => (
                     <option key={companyName} className="" value={companyName}>
                       {companyName}
