@@ -47,6 +47,48 @@ const getDashboardData = async (req, res, next) => {
       });
     }
 
+    const recentDataQuery = `
+      SELECT total_companies, total_customers, total_deal_value_usd
+      FROM dashboard_data
+      ORDER BY last_updated DESC
+      LIMIT 1;
+    `;
+    const recentDataResult = await pool.query(recentDataQuery);
+
+    let shouldInsert = true;
+
+    if (recentDataResult.rowCount > 0) {
+      const recentData = recentDataResult.rows[0];
+
+      if (
+        recentData.total_companies == totalCompanies &&
+        recentData.total_customers == totalCustomers &&
+        recentData.total_deal_value_usd == totalDealValueUSD
+      ) {
+        shouldInsert = false;
+      }
+    }
+
+    if (shouldInsert) {
+      const upsertQuery = `
+        INSERT INTO dashboard_data (total_companies, total_customers, total_deal_value_usd, last_updated)
+        VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
+        ON CONFLICT (dd_id) DO UPDATE
+        SET total_companies = EXCLUDED.total_companies,
+            total_customers = EXCLUDED.total_customers,
+            total_deal_value_usd = EXCLUDED.total_deal_value_usd,
+            last_updated = EXCLUDED.last_updated;
+      `;
+      await pool.query(upsertQuery, [
+        totalCompanies,
+        totalCustomers,
+        totalDealValueUSD,
+      ]);
+    }
+
+    const dataHistoryQuery = "select * from dashboard_data";
+    const dataHistoryResult = await pool.query(dataHistoryQuery);
+
     res.json({
       success: true,
       message: {
@@ -54,6 +96,7 @@ const getDashboardData = async (req, res, next) => {
         totalCustomers,
         totalDealValueUSD,
       },
+      data: dataHistoryResult.rows,
     });
   } catch (error) {
     next(error);

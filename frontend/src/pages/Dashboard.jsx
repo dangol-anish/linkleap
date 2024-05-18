@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { ChartGraph } from "../utils/chart";
+import moment from "moment";
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
     totalCompanies: 0,
     totalCustomers: 0,
-    totalDealValueUSD: 0,
+    totalDealValueUSD: 0.0,
   });
+
+  const [data, setData] = useState({ success: false });
+  const [chartData, setChartData] = useState(null);
+  const prepareChartData = (data) => {
+    const labels = data.map((item) =>
+      moment(item.last_updated).format("MM-DD HH")
+    );
+    const customers = data.map((item) => parseInt(item.total_customers));
+    const companies = data.map((item) => parseInt(item.total_companies));
+
+    return { labels, customers, companies };
+  };
 
   const getDashboardData = async () => {
     try {
@@ -18,16 +32,27 @@ const Dashboard = () => {
         credentials: "include",
       });
 
-      const data = await res.json();
-      setDashboardData(data.message);
+      const responseData = await res.json();
+      setData({ success: responseData.success });
+      setDashboardData(responseData.message);
+
+      const preparedChartData = prepareChartData(responseData.data);
+      setChartData(preparedChartData);
     } catch (error) {
-      toast.error("Error", error);
+      console.error("Error fetching dashboard data:", error);
     }
   };
 
   useEffect(() => {
     getDashboardData();
+
+    const interval = setInterval(() => {
+      getDashboardData();
+    }, 60000);
+
+    return () => clearInterval(interval);
   }, []);
+
   return (
     <>
       <main className="flex min-h-screen">
@@ -41,21 +66,41 @@ const Dashboard = () => {
               </p>
             </div>
           </div>
-          <div className="w-full h-[16%] flex justify-around">
-            <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
-              <p className="text-[16px] font-medium">Total Customers</p>
-              <p className="text-[36px]">{dashboardData.totalCustomers}</p>
+          {data.success ? (
+            <div className="w-full h-[16%] flex justify-around">
+              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
+                <p className="text-[16px] font-medium">Total Customers</p>
+                <p className="text-[36px]">{dashboardData.totalCustomers}</p>
+              </div>
+              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
+                <p className="text-[16px] font-medium">Total Companies</p>
+                <p className="text-[36px]">{dashboardData.totalCompanies}</p>
+              </div>
+              <div className="w-[30%] border rounded-[8px] h-full p-[24px] flex flex-col gap-[24px] justify-center">
+                <p className="text-[16px] font-medium">Deal Value</p>
+                <p className="text-[36px]">
+                  ${dashboardData.totalDealValueUSD.toFixed(2)}
+                </p>
+              </div>
             </div>
-            <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
-              <p className="text-[16px] font-medium">Total Companies</p>
-              <p className="text-[36px]">{dashboardData.totalCompanies}</p>
+          ) : (
+            <div className="w-full  h-[16%] flex justify-around">
+              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
+                <p className="text-[16px] font-medium">Total Customers</p>
+                <p className="text-[36px]">0</p>
+              </div>
+              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
+                <p className="text-[16px] font-medium">Total Companies</p>
+                <p className="text-[36px]">0</p>
+              </div>
+              <div className="w-[30%] border rounded-[8px] h-full p-[24px] flex flex-col gap-[24px] justify-center">
+                <p className="text-[16px] font-medium">Deal Value</p>
+                <p className="text-[36px]">0</p>
+              </div>
             </div>
-            <div className="w-[30%] border rounded-[8px] h-full p-[24px] flex flex-col gap-[24px] justify-center">
-              <p className="text-[16px] font-medium">Deal Value</p>
-              <p className="text-[36px]">
-                ${dashboardData.totalDealValueUSD.toFixed(2)}
-              </p>
-            </div>
+          )}
+          <div className=" h-[40vh] w-full flex  my-[32px] px-[32px]">
+            {chartData && <ChartGraph data={chartData} />}{" "}
           </div>
         </section>
       </main>

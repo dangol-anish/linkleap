@@ -53,3 +53,11 @@ CREATE TABLE customer_logs (
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
 );
 
+
+CREATE TABLE dashboard_data (
+  dd_id SERIAL PRIMARY KEY,
+  total_companies INTEGER,
+  total_customers INTEGER,
+  total_deal_value_usd NUMERIC,
+  last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
