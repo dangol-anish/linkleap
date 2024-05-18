@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const bcryptjs = require("bcryptjs");
+const pool = require("./model/config.js");
 
 // user defined imports
 const errorHandler = require("./utils/errorHandler.js");

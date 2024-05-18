@@ -36,7 +36,7 @@ const Sidebar = () => {
 
       if (response.ok && data.success === true) {
         localStorage.removeItem("data");
-        navigate("/login");
+        navigate("/");
       } else {
         throw new Error(data.message || "Logout failed. Please try again.");
       }
@@ -47,7 +47,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="min-w-[310px] border border-linkleap-border min-h-screen flex flex-col justify-between">
+      <div className="min-w-[310px] border border-linkleap-border min-h-screen flex flex-col justify-between ">
         <section className="flex flex-col gap-[24px] px-[24px] py-[32px]">
           <div className="flex items-center gap-[8px] ">
             <img src={logo} className="h-[32px] w-[32px]" alt="" />

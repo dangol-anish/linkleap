@@ -18,7 +18,7 @@ const Protected = () => {
 
         setAuthenticated(true);
       } catch (error) {
-        navigate("/login");
+        navigate("/");
       }
     };
 

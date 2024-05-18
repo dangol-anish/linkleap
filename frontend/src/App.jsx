@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Customer";
@@ -17,8 +17,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Public />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Login />} />
           </Route>
 
           <Route element={<Protected />}>
