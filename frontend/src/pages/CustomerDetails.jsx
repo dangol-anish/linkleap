@@ -23,7 +23,7 @@ const CustomerDetails = () => {
     });
     const year = date.getUTCFullYear();
 
-    return `${hours}:${minutes}    ${month} ${day} ${year}`;
+    return `${hours}:${minutes} ${month} ${day} ${year}`;
   }
 
   useEffect(() => {
@@ -86,67 +86,67 @@ const CustomerDetails = () => {
         <Sidebar />
 
         <section className="w-full flex flex-col">
-          <header className="flex w-full py-[32px] px-[32px] border-b-[1px] ">
+          <header className="flex w-full py-8 px-8 border-b-[1px]">
             <div>
-              <h2 className="text-[30px] font-medium">Customers</h2>
-              <p className="text-linkleap-gray">
+              <h2 className="text-2xl font-medium">Customers</h2>
+              <p className="text-gray-500">
                 Track, manage, and forecast your customer and orders.
               </p>
             </div>
           </header>
-          <div className="flex h-full w-full ">
-            <div className="w-[30%] py-[16px] px-[32px] flex flex-col gap-[24px] border-r-[1px] border-linkleap-border">
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Name</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+          <div className="flex flex-col md:flex-row h-full w-full">
+            <div className="w-full md:w-1/3 py-4 px-8 flex flex-col gap-6 border-b md:border-b-0 md:border-r border-gray-300">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Name</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {currentCustomerData.customerName}
                 </p>
               </label>
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Email</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Email</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {currentCustomerData.customerEmail}
                 </p>
               </label>
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Job Title</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Job Title</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {currentCustomerData.customerJobTitle}
                 </p>
               </label>
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Deal Value</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Deal Value</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {getCurrencySymbol(currentCustomerData.dealValueCurrency)}{" "}
                   {currentCustomerData.customerDealValue}
                 </p>
               </label>
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Company</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Company</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {currentCustomerData.customerCompany}
                 </p>
               </label>
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Description</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Description</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {currentCustomerData.customerDescription}
                 </p>
               </label>
-              <label className="flex flex-col gap-[6px] w-full" htmlFor="">
-                <p className="text-[14px] font-medium">Status</p>
-                <p className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]">
+              <label className="flex flex-col gap-2 w-full">
+                <p className="text-sm font-medium">Status</p>
+                <p className="w-full px-4 py-2 border rounded-md">
                   {currentCustomerData.customerStatus}
                 </p>
               </label>
             </div>
-            <div className="w-[60%] py-[16px] px-[32px] flex flex-col gap-[24px]">
-              <h2 className="text-[24px] font-medium">Interactions</h2>
-              <ul className="flex flex-col gap-[12px]">
+            <div className="w-full md:w-2/3 py-4 px-8 flex flex-col gap-6">
+              <h2 className="text-xl font-medium">Interactions</h2>
+              <ul className="flex flex-col gap-3">
                 {currentCustomerLogs.map((data) => (
                   <li
                     key={data.log_id}
-                    className="flex  bg-[#F4F4F4] py-[12px] px-[24px] gap-[16px] rounded-[12px] w-full"
+                    className="flex bg-gray-200 py-3 px-6 gap-4 rounded-md w-full"
                   >
                     <p className="text-[14px] font-normal text-[#808080]">
                       {formatTimestamp(data.event_timestamp)}

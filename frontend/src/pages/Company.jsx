@@ -10,7 +10,7 @@ import { textLimiter } from "../utils/textLimiter";
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [itemsPerPage, setItemsPerPage] = useState(7);
 
   useEffect(() => {
     getCompanyData();
