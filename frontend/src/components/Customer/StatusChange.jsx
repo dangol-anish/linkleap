@@ -26,7 +26,7 @@ const StatusChange = ({ currentStatus, customerId }) => {
       if (selectedStatus !== currentStatus) {
         try {
           const res = await fetch(
-            `http://localhost:3000/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
+            `/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
             {
               method: "POST",
               headers: {

@@ -30,7 +30,7 @@ const CustomerDetails = () => {
     const getCurrentCustomerData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/customer/getCurrentCustomerData/${customerId}`,
+          `/api/customer/getCurrentCustomerData/${customerId}`,
           {
             method: "POST",
             headers: {
@@ -56,16 +56,13 @@ const CustomerDetails = () => {
   useEffect(() => {
     const getCustomerLogs = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/customer/getCustomerLogs/${customerId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`/api/customer/getCustomerLogs/${customerId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
         const data = await res.json();
 
         if (data.success === true) {

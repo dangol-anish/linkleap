@@ -26,7 +26,7 @@ const Customer = () => {
 
   const getCustomerData = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/customer/", {
+      const res = await fetch("/api/customer/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

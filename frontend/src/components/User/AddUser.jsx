@@ -32,7 +32,7 @@ const AddUser = ({ getUserData }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/user/addNewUser", {
+      const res = await fetch("/api/user/addNewUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

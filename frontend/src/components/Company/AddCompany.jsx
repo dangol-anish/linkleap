@@ -29,17 +29,14 @@ const AddCompany = ({ getCompanyData }) => {
     }
 
     try {
-      const res = await fetch(
-        "http://localhost:3000/api/company/addNewCompany",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(companyData),
-          credentials: "include",
-        }
-      );
+      const res = await fetch("/api/company/addNewCompany", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(companyData),
+        credentials: "include",
+      });
       const data = await res.json();
 
       if (data.success === true) {

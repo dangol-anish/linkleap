@@ -6,17 +6,14 @@ import { toast } from "react-toastify";
 const DeleteUser = ({ userId, getUserData }) => {
   const handleUserDelete = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/user/deleteUser/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const res = await fetch(`/api/user/deleteUser/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-          credentials: "include",
-        }
-      );
+        credentials: "include",
+      });
       const data = await res.json();
 
       if (data.success === true) {

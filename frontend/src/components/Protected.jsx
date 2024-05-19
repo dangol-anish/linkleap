@@ -8,7 +8,7 @@ const Protected = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/verifyUserToken", {
+        const response = await fetch("/verifyUserToken", {
           method: "GET",
           credentials: "include",
         });

@@ -33,7 +33,7 @@ const AddCustomer = ({ getCustomerData }) => {
   useEffect(() => {
     const getCompanyData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/company/", {
+        const res = await fetch("/api/company/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,17 +78,14 @@ const AddCustomer = ({ getCustomerData }) => {
     }
 
     try {
-      const res = await fetch(
-        "http://localhost:3000/api/customer/addNewCustomer",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(customerData),
-          credentials: "include",
-        }
-      );
+      const res = await fetch("/api/customer/addNewCustomer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(customerData),
+        credentials: "include",
+      });
       const data = await res.json();
 
       if (data.success === true) {

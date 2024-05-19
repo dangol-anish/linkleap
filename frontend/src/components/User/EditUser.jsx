@@ -38,16 +38,13 @@ const EditUser = ({ userId, getUserData }) => {
 
   const getCurrentUserData = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/user/getCurrentUserData/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/user/getCurrentUserData/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await res.json();
 
       if (data.success === true) {
@@ -72,17 +69,14 @@ const EditUser = ({ userId, getUserData }) => {
       return;
     }
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/user/updateUserData/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(currentUserData),
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/user/updateUserData/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(currentUserData),
+        credentials: "include",
+      });
 
       const data = await res.json();
 

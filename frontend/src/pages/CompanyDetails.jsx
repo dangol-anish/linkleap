@@ -11,7 +11,7 @@ const CompanyDetails = () => {
     const getCurrentCompanyData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/company/getCurrentCompanyData/${companyId}`,
+          `/api/company/getCurrentCompanyData/${companyId}`,
           {
             method: "POST",
             headers: {
@@ -38,7 +38,7 @@ const CompanyDetails = () => {
     const getCustomersInCompany = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/company/customersInCompany/${companyId}`,
+          `/api/company/customersInCompany/${companyId}`,
           {
             method: "POST",
             headers: {
