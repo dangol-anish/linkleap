@@ -63,10 +63,10 @@ const AddUser = ({ getUserData }) => {
     <>
       <button
         onClick={() => openModal()}
-        className="bg-linkleap-login-btn flex gap-[8px] rounded-[8px] justify-center items-center px-[16px] py-[10px] h-[40px]"
+        className="bg-linkleap-login-btn flex gap-2 rounded-lg justify-center items-center px-4 py-2 h-10"
       >
         <img src={sbAdd} alt="sbAdd" />
-        <span className="text-[14px] font-medium text-white">Add</span>
+        <span className="text-sm font-medium text-white">Add</span>
       </button>
 
       <Modal
@@ -83,71 +83,64 @@ const AddUser = ({ getUserData }) => {
       >
         <form
           onSubmit={handleSubmit}
-          className="bg-white h-[630px] w-[410px]  p-[24px] rounded-[12px] flex flex-col gap-[32px]"
+          className="bg-white h-auto w-[95%] max-w-md p-6 rounded-lg flex flex-col gap-8"
         >
-          <div className="flex flex-col gap-[20px]">
-            <div className="flex gap-[8px] flex-col justify-center items-center">
-              <h3 className="text-[18px] font-semibold">Add New User</h3>
-              <p
-                className="text-linkleap-gray text-[14px] font-normal
-                  "
-              >
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col justify-center items-center gap-2">
+              <h3 className="text-lg font-semibold">Add New User</h3>
+              <p className="text-linkleap-gray text-sm font-normal">
                 Enter the details of new users
               </p>
             </div>
-            <div className="flex flex-col gap-[16px]">
-              <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Name</p>
+            <div className="flex flex-col gap-4">
+              <label className="flex flex-col gap-1" htmlFor="userDisplayName">
+                <p className="text-sm font-medium">Name</p>
                 <input
-                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-4 py-2 border rounded-lg"
                   type="text"
                   placeholder="Shrijan Dangol"
                   id="userDisplayName"
                   onChange={handleChange}
                 />
               </label>
-              <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Email</p>
+              <label className="flex flex-col gap-1" htmlFor="userEmail">
+                <p className="text-sm font-medium">Email</p>
                 <input
-                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-4 py-2 border rounded-lg"
                   type="email"
                   id="userEmail"
                   placeholder="shrijan@gmail.com"
                   onChange={handleChange}
                 />
               </label>
-              <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Username</p>
+              <label className="flex flex-col gap-1" htmlFor="userName">
+                <p className="text-sm font-medium">Username</p>
                 <input
-                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-4 py-2 border rounded-lg"
                   type="text"
                   id="userName"
                   placeholder="shrijandangol"
                   onChange={handleChange}
                 />
               </label>
-              <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Password</p>
+              <label className="flex flex-col gap-1" htmlFor="userPassword">
+                <p className="text-sm font-medium">Password</p>
                 <input
-                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px]"
+                  className="w-full focus:border-linkleap-login-btn focus:outline-none px-4 py-2 border rounded-lg"
                   type="password"
                   placeholder="********"
-                  name=""
                   id="userPassword"
                   onChange={handleChange}
                 />
               </label>
-              <label className="flex flex-col gap-[6px]" htmlFor="">
-                <p className="text-[14px] font-medium">Role</p>
+              <label className="flex flex-col gap-1" htmlFor="userType">
+                <p className="text-sm font-medium">Role</p>
                 <select
-                  className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-[14px] py-[10px] border-[1px] rounded-[8px] custom-select cursor-pointer"
-                  name=""
+                  className="w-full appearance-none focus:border-linkleap-login-btn focus:outline-none px-4 py-2 border rounded-lg custom-select cursor-pointer"
                   id="userType"
                   onChange={handleChange}
                 >
-                  <option className="" value="Manager">
-                    Manager
-                  </option>
+                  <option value="Manager">Manager</option>
                   <option value="Customer Support">Customer Support</option>
                   <option value="Sales Representative">
                     Sales Representative
@@ -156,14 +149,14 @@ const AddUser = ({ getUserData }) => {
               </label>
             </div>
           </div>
-          <div className="flex gap-[8px]">
+          <div className="flex gap-2">
             <button
-              className="w-[175px] py-[10px] px-[18px] border-[1px] rounded-[8px] text-[16px] font-medium"
+              className="w-full py-2 px-4 border rounded-lg text-base font-medium"
               onClick={closeModal}
             >
               Cancel
             </button>
-            <button className="w-[175px] py-[10px] px-[18px] rounded-[8px] bg-linkleap-login-btn text-[16px] font-medium text-white ">
+            <button className="w-full py-2 px-4 rounded-lg bg-linkleap-login-btn text-base font-medium text-white">
               Add
             </button>
           </div>
