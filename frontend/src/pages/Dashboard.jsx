@@ -12,6 +12,7 @@ const Dashboard = () => {
 
   const [data, setData] = useState({ success: false });
   const [chartData, setChartData] = useState(null);
+
   const prepareChartData = (data) => {
     const labels = data.map((item) =>
       moment(item.last_updated).format("MM-DD HH")
@@ -54,57 +55,55 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <>
-      <main className="flex min-h-screen">
-        <Sidebar />
-        <section className="w-full">
-          <div className="flex w-full my-[32px] px-[32px] justify-between">
-            <div>
-              <h2 className="text-[30px] font-medium">Dashboard</h2>
-              <p className="text-linkleap-gray">
-                Track, manage, and forecast your customer and orders.
+    <main className="flex flex-col md:flex-row min-h-screen">
+      <Sidebar />
+      <section className="w-full p-4 md:p-8">
+        <div className="flex flex-col md:flex-row w-full mb-8 justify-between">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-medium">Dashboard</h2>
+            <p className="text-gray-500">
+              Track, manage, and forecast your customer and orders.
+            </p>
+          </div>
+        </div>
+        {data.success ? (
+          <div className="flex flex-col md:flex-row w-full h-auto md:h-1/6 justify-around space-y-4 md:space-y-0 md:space-x-4">
+            <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
+              <p className="text-lg font-medium">Total Customers</p>
+              <p className="text-3xl">{dashboardData.totalCustomers}</p>
+            </div>
+            <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
+              <p className="text-lg font-medium">Total Companies</p>
+              <p className="text-3xl">{dashboardData.totalCompanies}</p>
+            </div>
+            <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
+              <p className="text-lg font-medium">Deal Value</p>
+              <p className="text-3xl">
+                ${dashboardData.totalDealValueUSD.toFixed(2)}
               </p>
             </div>
           </div>
-          {data.success ? (
-            <div className="w-full h-[16%] flex justify-around">
-              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
-                <p className="text-[16px] font-medium">Total Customers</p>
-                <p className="text-[36px]">{dashboardData.totalCustomers}</p>
-              </div>
-              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
-                <p className="text-[16px] font-medium">Total Companies</p>
-                <p className="text-[36px]">{dashboardData.totalCompanies}</p>
-              </div>
-              <div className="w-[30%] border rounded-[8px] h-full p-[24px] flex flex-col gap-[24px] justify-center">
-                <p className="text-[16px] font-medium">Deal Value</p>
-                <p className="text-[36px]">
-                  ${dashboardData.totalDealValueUSD.toFixed(2)}
-                </p>
-              </div>
+        ) : (
+          <div className="flex flex-col md:flex-row w-full h-auto md:h-1/6 justify-around space-y-4 md:space-y-0 md:space-x-4">
+            <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
+              <p className="text-lg font-medium">Total Customers</p>
+              <p className="text-3xl">0</p>
             </div>
-          ) : (
-            <div className="w-full  h-[16%] flex justify-around">
-              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
-                <p className="text-[16px] font-medium">Total Customers</p>
-                <p className="text-[36px]">0</p>
-              </div>
-              <div className="w-[30%] border rounded-[8px] h-full p-[24px]  flex flex-col gap-[24px] justify-center">
-                <p className="text-[16px] font-medium">Total Companies</p>
-                <p className="text-[36px]">0</p>
-              </div>
-              <div className="w-[30%] border rounded-[8px] h-full p-[24px] flex flex-col gap-[24px] justify-center">
-                <p className="text-[16px] font-medium">Deal Value</p>
-                <p className="text-[36px]">0</p>
-              </div>
+            <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
+              <p className="text-lg font-medium">Total Companies</p>
+              <p className="text-3xl">0</p>
             </div>
-          )}
-          <div className=" h-[40vh] w-full flex  my-[32px] px-[32px]">
-            {chartData && <ChartGraph data={chartData} />}{" "}
+            <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
+              <p className="text-lg font-medium">Deal Value</p>
+              <p className="text-3xl">0</p>
+            </div>
           </div>
-        </section>
-      </main>
-    </>
+        )}
+        <div className="w-full h-64 md:h-96 my-8">
+          {chartData && <ChartGraph data={chartData} />}
+        </div>
+      </section>
+    </main>
   );
 };
 

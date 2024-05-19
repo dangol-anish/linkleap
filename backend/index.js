@@ -34,9 +34,6 @@ app.use("/api/company", verifyToken, companyRouter);
 app.use("/api/customer", verifyToken, customerRouter);
 app.use("/api/dashboard", verifyToken, dashboardData);
 app.get("/verifyUserToken", verifyToken, verifyUserToken);
-app.get("/", (req, res) => {
-  res.send("Vercel Backend");
-});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

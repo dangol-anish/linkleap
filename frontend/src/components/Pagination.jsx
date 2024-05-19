@@ -8,15 +8,11 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   }
 
   return (
-    <footer
-      className="border-t-[1px] 
-    
-    border-linkleap-border h-[7vh]  bottom-0 w-full px-[24px] text-[14px] pt-[12px] py-[12px] flex justify-between items-center "
-    >
-      <ul className="flex gap-[12px]">
+    <footer className="border-t border-linkleap-border h-[7vh] w-full px-4  md:px-6 py-4 flex justify-between items-center mt-auto">
+      <ul className="flex gap-3">
         <li className="flex items-center">
           <button
-            className="border-[1px] font-medium border-linkleap-border rounded-[8px] px-[14px] py-[8px] flex items-center"
+            className="border border-linkleap-border font-medium rounded-md px-3 py-2"
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
           >
@@ -26,7 +22,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 
         <li className="flex items-center">
           <button
-            className="border-[1px] font-medium border-linkleap-border rounded-[8px] px-[14px] py-[8px] flex items-center"
+            className="border border-linkleap-border font-medium rounded-md px-3 py-2"
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === Math.ceil(totalItems / itemsPerPage)}
           >

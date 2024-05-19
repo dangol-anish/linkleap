@@ -11,7 +11,7 @@ import DeleteUser from "../components/User/DeleteUser";
 const User = () => {
   const [userList, setUserList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [itemsPerPage, setItemsPerPage] = useState(7);
 
   useEffect(() => {
     getUserData();
@@ -46,76 +46,82 @@ const User = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = Array.isArray(userList)
-    ? userList.slice(indexOfFirstItem, indexOfLastItem)
-    : [];
+  const currentItems = userList.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
-      <main className="flex min-h-screen">
+      <main className="flex flex-col md:flex-row min-h-screen">
         <Sidebar />
-        <section className="w-full flex flex-col justify-between">
+        <section className="w-full flex flex-col justify-between flex-grow">
           <div>
-            <div className="flex w-full my-[32px] px-[32px] justify-between">
+            <div className="flex flex-col md:flex-row w-full my-[32px] px-[32px] justify-between items-start md:items-center">
               <div>
-                <h2 className="text-[30px] font-medium">Users</h2>
+                <h2 className="text-[24px] md:text-[30px] font-medium">
+                  Users
+                </h2>
                 <p className="text-linkleap-gray">
                   Track, manage, and forecast your customer and orders.
                 </p>
               </div>
-              <AddUser getUserData={getUserData} />
+              <div className="mt-[16px] md:mt-0">
+                <AddUser getUserData={getUserData} />
+              </div>
             </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead className="text-[12px] text-left">
+                  <tr className="text-left">
+                    <th className="px-[32px] w-[50%] py-[12px]  text-linkleap-gray font-medium">
+                      Users
+                    </th>
+                    <th className="px-[24px] w-[13%]  py-[12px] text-linkleap-gray font-medium">
+                      Role
+                    </th>
+                    <th className="px-[24px] w-[13%] py-[12px] text-linkleap-gray font-medium">
+                      Username
+                    </th>
+                    <th className="px-[24px] w-[13%] py-[12px] text-linkleap-gray font-medium">
+                      Password
+                    </th>
 
-            <table className="w-full">
-              <thead className="w-full text-[12px] text-left">
-                <tr className="text-left">
-                  <th className="px-[24px] w-[50%] py-[12px]  text-linkleap-gray font-medium">
-                    Users
-                  </th>
-                  <th className="px-[24px] w-[13%]  py-[12px] text-linkleap-gray font-medium">
-                    Role
-                  </th>
-                  <th className="px-[24px] w-[13%] py-[12px] text-linkleap-gray font-medium">
-                    Username
-                  </th>
-                  <th className="px-[24px] w-[13%] py-[12px] text-linkleap-gray font-medium">
-                    Password
-                  </th>
-
-                  <th className="px-[24px] w-[11%]  py-[12px] text-linkleap-gray font-medium"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((user, index) => (
-                  <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium">
-                      <span className="text-[14px]">
-                        {user.user_display_name}
-                      </span>
-                      <br />
-                      <span className="text-[14px] text-linkleap-gray">
-                        {user.user_email}
-                      </span>
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      {user.user_type}
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      {textLimiter(user.user_name)}
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
-                      *******
-                    </td>
-                    <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
-                      <DeleteUser userId={user.id} getUserData={getUserData} />
-                      <EditUser userId={user.id} getUserData={getUserData} />
-                    </td>
+                    <th className="px-[24px] w-[120px]  py-[12px] text-linkleap-gray font-medium"></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentItems.map((user, index) => (
+                    <tr className="odd:bg-[#F9FAFB] w-fit" key={index}>
+                      <td className="px-[32px] py-[12px] text-linkleap-gray font-medium">
+                        <span className="text-[14px]">
+                          {user.user_display_name}
+                        </span>
+                        <br />
+                        <span className="text-[14px] text-linkleap-gray">
+                          {user.user_email}
+                        </span>
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                        {user.user_type}
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                        {textLimiter(user.user_name)}
+                      </td>
+                      <td className="px-[24px] py-[12px] text-linkleap-gray font-medium text-[14px]">
+                        *******
+                      </td>
+                      <td className="px-[24px] w-[120px] py-[12px] text-linkleap-gray font-medium text-[14px] flex justify-center items-center">
+                        <DeleteUser
+                          userId={user.id}
+                          getUserData={getUserData}
+                        />
+                        <EditUser userId={user.id} getUserData={getUserData} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div>
