@@ -83,7 +83,7 @@ const AddCompany = ({ getCompanyData }) => {
       >
         <form
           onSubmit={handleSubmit}
-          className="bg-white h-[630px] w-[410px]  p-[24px] rounded-[12px] flex flex-col gap-[32px]"
+          className="bg-white h-auto w-[95%] max-w-md p-6 rounded-lg flex flex-col gap-8"
         >
           <div className="flex flex-col gap-[20px]">
             <div className="flex gap-[8px] flex-col justify-center items-center">
