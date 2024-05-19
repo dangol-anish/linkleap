@@ -26,7 +26,7 @@ const SidebarSmall = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/logout", {
+      const response = await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });
