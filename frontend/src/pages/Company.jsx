@@ -6,6 +6,7 @@ import DeleteCompany from "../components/Company/DeleteCompany";
 import EditCompany from "../components/Company/EditCompany";
 import { Link } from "react-router-dom";
 import { textLimiter } from "../utils/textLimiter";
+import SidebarSmall from "../components/SidebarSmall";
 
 const Company = () => {
   const [companyList, setCompanyList] = useState([]);
@@ -47,11 +48,12 @@ const Company = () => {
 
   return (
     <>
-      <main className="flex min-h-screen">
+      <main className="flex flex-col md:flex-row min-h-screen">
+        <SidebarSmall />
         <Sidebar />
         <section className="w-full flex flex-col justify-between flex-grow">
           <div>
-            <div className="flex flex-col md:flex-row w-full my-[32px] px-[32px] justify-between items-start md:items-center">
+            <div className="flex flex-col md:flex-row w-full my-[16px] md:my-[32px] px-[32px] justify-between items-start md:items-center">
               <div>
                 <h2 className="text-[24px] md:text-[30px] font-medium">
                   Companies

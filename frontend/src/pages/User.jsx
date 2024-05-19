@@ -7,6 +7,7 @@ import { textLimiter } from "../utils/textLimiter";
 import EditUser from "../components/User/EditUser";
 import AddUser from "../components/User/AddUser";
 import DeleteUser from "../components/User/DeleteUser";
+import SidebarSmall from "../components/SidebarSmall";
 
 const User = () => {
   const [userList, setUserList] = useState([]);
@@ -52,11 +53,12 @@ const User = () => {
 
   return (
     <>
-      <main className="flex min-h-screen">
+      <main className="flex flex-col md:flex-row min-h-screen">
+        <SidebarSmall />
         <Sidebar />
         <section className="w-full flex flex-col justify-between flex-grow">
           <div>
-            <div className="flex flex-col md:flex-row w-full my-[32px] px-[32px] justify-between items-start md:items-center">
+            <div className="flex flex-col md:flex-row w-full  my-[16px] md:my-[32px] px-[32px] justify-between items-start md:items-center">
               <div>
                 <h2 className="text-[24px] md:text-[30px] font-medium">
                   Users
@@ -70,7 +72,7 @@ const User = () => {
               </div>
             </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full">
+              <table className="min-w-full ">
                 <thead className="text-[12px] text-left">
                   <tr className="text-left">
                     <th className="px-[32px] w-[50%] py-[12px]  text-linkleap-gray font-medium">

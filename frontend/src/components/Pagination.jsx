@@ -9,6 +9,9 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
 
   return (
     <footer className="border-t border-linkleap-border h-[7vh] w-full px-4  md:px-6 py-4 flex justify-between items-center mt-auto">
+      <span className="font-medium">
+        Page {currentPage} of {Math.ceil(totalItems / itemsPerPage)}
+      </span>
       <ul className="flex gap-3">
         <li className="flex items-center">
           <button
@@ -30,9 +33,6 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
           </button>
         </li>
       </ul>
-      <span className="font-medium">
-        Page {currentPage} of {Math.ceil(totalItems / itemsPerPage)}
-      </span>
     </footer>
   );
 };

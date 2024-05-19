@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { ChartGraph } from "../utils/chart";
 import moment from "moment";
+import SidebarSmall from "../components/SidebarSmall";
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -56,6 +57,7 @@ const Dashboard = () => {
 
   return (
     <main className="flex flex-col md:flex-row min-h-screen">
+      <SidebarSmall />
       <Sidebar />
       <section className="w-full p-4 md:p-8">
         <div className="flex flex-col md:flex-row w-full mb-8 justify-between">

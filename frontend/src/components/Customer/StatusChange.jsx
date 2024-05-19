@@ -13,9 +13,9 @@ const StatusChange = ({ currentStatus, customerId }) => {
   const getBackgroundColor = (status) => {
     switch (status) {
       case "Won":
-        return "bg-[#ECFDF3] text-green-700";
+        return "bg-[#ECFDF3] text-green-900";
       case "Lost":
-        return "bg-[#FFBFBF] text-red-700";
+        return "bg-[#FFBFBF] text-red-900";
       default:
         return "bg-[#545554] text-white";
     }
