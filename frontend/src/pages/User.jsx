@@ -52,7 +52,7 @@ const User = () => {
 
   return (
     <>
-      <main className="flex flex-col md:flex-row min-h-screen">
+      <main className="flex min-h-screen">
         <Sidebar />
         <section className="w-full flex flex-col justify-between flex-grow">
           <div>
