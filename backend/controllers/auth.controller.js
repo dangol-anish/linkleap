@@ -50,6 +50,7 @@ const login = async (req, res, next) => {
         httpOnly: true,
         expires: expiryDate,
         sameSite: "none",
+        secure: false,
       })
       .status(200)
       .json({
