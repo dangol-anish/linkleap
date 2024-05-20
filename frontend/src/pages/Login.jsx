@@ -22,15 +22,20 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://linkleap-nrfuxtxkb-anish-dangols-projects.vercel.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: "include",
+        }
+      );
       const data = await res.json();
+
+      console.log(data);
 
       if (data.success === true) {
         toast.success("Login successful");
