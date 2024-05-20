@@ -63,7 +63,7 @@ const Login = () => {
             <input
               className="border-[1.5px] border-linkleap-border  rounded-[8px] px-[10px] py-[14px] focus:border-linkleap-login-btn focus:outline-none"
               type="text"
-              placeholder="shrijandangol"
+              placeholder="superadmin"
               id="userName"
               onChange={handleChange}
             />
