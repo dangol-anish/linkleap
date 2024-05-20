@@ -34,7 +34,7 @@ app.use("/api/company", verifyToken, companyRouter);
 app.use("/api/customer", verifyToken, customerRouter);
 app.use("/api/dashboard", verifyToken, dashboardData);
 app.get("/verifyUserToken", verifyToken, verifyUserToken);
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   res.send("Node on Vercel");
 });
 
