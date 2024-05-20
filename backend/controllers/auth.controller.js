@@ -47,7 +47,7 @@ const login = async (req, res, next) => {
 
     res
       .cookie("accessToken", accessToken, {
-        httpOnly: true,
+        httpOnly: false,
         expires: expiryDate,
         same_site: "none",
         secure: false,
