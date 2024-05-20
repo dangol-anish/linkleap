@@ -1,7 +1,7 @@
-export const textLimiter = (text) => {
-  if (text.length <= 25) {
+export const textLimiter = (text, limit) => {
+  if (text.length <= 15) {
     return text;
   } else {
-    return text.substring(0, 25) + "...";
+    return text.substring(0, 15) + "...";
   }
 };

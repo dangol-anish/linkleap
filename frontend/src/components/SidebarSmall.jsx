@@ -46,7 +46,7 @@ const SidebarSmall = () => {
 
   return (
     <>
-      <section className="flex px-[32px] py-[16px] md:hidden items-center justify-between border-b-[1px]">
+      <section className="flex px-[24px] py-[16px] md:hidden items-center justify-between border-b-[1px]">
         <Link to="/dashboard">
           <img src={logo} className="h-[32px] w-[32px]" alt="" />
         </Link>

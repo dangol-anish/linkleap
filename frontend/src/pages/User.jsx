@@ -12,7 +12,7 @@ import SidebarSmall from "../components/SidebarSmall";
 const User = () => {
   const [userList, setUserList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(7);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   useEffect(() => {
     getUserData();

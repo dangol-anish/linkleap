@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import SidebarSmall from "../components/SidebarSmall";
 
 const CompanyDetails = () => {
   const [currentCompanyData, setCurrentCompanyData] = useState({});
@@ -50,12 +51,18 @@ const CompanyDetails = () => {
         const data = await res.json();
 
         if (data.success === true) {
-          setCustomersList(data.message);
+          if (Array.isArray(data.message)) {
+            setCustomersList(data.message);
+          } else {
+            setCustomersList([]);
+          }
         } else {
           toast.error(data.message);
+          setCustomersList([]);
         }
       } catch (error) {
         toast.error("Error: " + error);
+        setCustomersList([]);
       }
     };
     getCustomersInCompany();
@@ -64,6 +71,7 @@ const CompanyDetails = () => {
   return (
     <>
       <main className="flex flex-col lg:flex-row min-h-screen">
+        <SidebarSmall />
         <Sidebar />
 
         <section className="w-full flex flex-col">

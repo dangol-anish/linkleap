@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { toast } from "react-toastify";
 import { getCurrencySymbol } from "../utils/currencyConverter";
+import SidebarSmall from "../components/SidebarSmall";
 
 const CustomerDetails = () => {
   const [currentCustomerData, setCurrentCustomerData] = useState({});
@@ -79,7 +80,8 @@ const CustomerDetails = () => {
 
   return (
     <>
-      <main className="flex min-h-screen">
+      <main className="flex flex-col lg:flex-row min-h-screen">
+        <SidebarSmall />
         <Sidebar />
 
         <section className="w-full flex flex-col">

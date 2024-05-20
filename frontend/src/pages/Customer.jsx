@@ -14,7 +14,7 @@ import SidebarSmall from "../components/SidebarSmall";
 const Customer = () => {
   const [customerList, setCustomerList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(7);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   useEffect(() => {
     getCustomerData();
@@ -114,7 +114,7 @@ const Customer = () => {
                           </span>
                         </td>
                         <td className="px-[24px] py-[12px]  font-medium text-[14px]">
-                          {customer.company_name}
+                          {textLimiter(customer.company_name)}
                         </td>
                         <td className="px-[24px] py-[12px]  font-medium text-[14px]">
                           {customer.customer_job_title}
@@ -133,7 +133,7 @@ const Customer = () => {
                             getCustomerData={getCustomerData}
                           />
                         </td>
-                        <td className="px-[24px] py-[12px] w-[120px] font-medium text-[14px] flex =justify-center items-center">
+                        <td className="px-[24px] py-[12px] w-[120px] font-medium text-[14px] flex justify-center items-center">
                           <DeleteCustomer
                             customerId={customer.customer_id}
                             getCustomerData={getCustomerData}

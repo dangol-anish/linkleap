@@ -13,9 +13,9 @@ const StatusChange = ({ currentStatus, customerId }) => {
   const getBackgroundColor = (status) => {
     switch (status) {
       case "Won":
-        return "bg-[#ECFDF3] text-green-900";
+        return "bg-[#ECFDF3] text-green-700";
       case "Lost":
-        return "bg-[#FFBFBF] text-red-900";
+        return "bg-[#FFBFBF] text-red-700";
       default:
         return "bg-[#545554] text-white";
     }
@@ -47,7 +47,7 @@ const StatusChange = ({ currentStatus, customerId }) => {
 
   return (
     <select
-      className={`appearance-none px-[8px] py-[2px] text-white bg-[#545554]   focus:outline-none rounded-[16px]  text-center ${getBackgroundColor(
+      className={`appearance-none px-[8px] py-[2px] bg-[#545554]   focus:outline-none rounded-[16px]  text-center ${getBackgroundColor(
         selectedStatus
       )}`}
       name=""

@@ -81,7 +81,7 @@ const Dashboard = () => {
             <div className="w-full md:w-1/3 border rounded-lg p-6 flex flex-col gap-4 justify-center">
               <p className="text-lg font-medium">Deal Value</p>
               <p className="text-3xl">
-                ${dashboardData.totalDealValueUSD.toFixed(2)}
+                ${dashboardData.totalDealValueUSD.toFixed(0)}
               </p>
             </div>
           </div>
