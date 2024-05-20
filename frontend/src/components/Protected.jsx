@@ -12,6 +12,7 @@ const Protected = () => {
           `${import.meta.env.VITE_API_URL}/verifyUserToken`,
           {
             method: "GET",
+            credentials: "include",
           }
         );
         if (!response.ok) {

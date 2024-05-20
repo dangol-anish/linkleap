@@ -37,6 +37,7 @@ const AddCompany = ({ getCompanyData }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(companyData),
+          credentials: "include",
         }
       );
       const data = await res.json();
