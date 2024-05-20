@@ -18,12 +18,7 @@ const customerRouter = require("./routes/customer.route.js");
 const dashboardData = require("./routes/dashboard.route.js");
 
 // middlewares
-app.use(
-  cors({
-    origin: "https://linkleap-8i79-ljb5hyvdn-anish-dangols-projects.vercel.app",
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
