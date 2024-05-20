@@ -48,6 +48,8 @@ const login = async (req, res, next) => {
     res
       .cookie("accessToken", accessToken, {
         expires: expiryDate,
+        httpOnly: true,
+        secure: true,
       })
       .status(200)
       .json({
