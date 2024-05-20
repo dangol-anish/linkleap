@@ -50,6 +50,9 @@ const login = async (req, res, next) => {
         expires: expiryDate,
         httpOnly: true,
         secure: true,
+        sameSite: "None",
+        path: "/",
+        domain: ".vercel.app",
       })
       .status(200)
       .json({
