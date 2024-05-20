@@ -48,8 +48,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-module.exports = errorHandler;
-
 app.listen(process.env.PORT, () => {
   console.log("Running on port 3000");
 });
