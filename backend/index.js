@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -18,7 +20,12 @@ const customerRouter = require("./routes/customer.route.js");
 const dashboardData = require("./routes/dashboard.route.js");
 
 // middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.API_URL,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -43,21 +50,23 @@ app.use((err, req, res, next) => {
   });
 });
 
+module.exports = errorHandler;
+
 app.listen(process.env.PORT, () => {
   console.log("Running on port 3000");
 });
 
 // superadmin creation and postgres query connection example
 
-app.post("/admin", async (req, res) => {
-  const { userName, userDisplayName, userEmail, userPassword, userType } =
-    req.body;
+// app.post("/admin", async (req, res) => {
+//   const { userName, userDisplayName, userEmail, userPassword, userType } =
+//     req.body;
 
-  const hashedPassword = bcryptjs.hashSync(userPassword, 10);
-  const query = await pool.query(
-    "insert into users (user_name, user_display_name, user_email, user_password, user_type) values($1, $2, $3, $4, $5)",
-    [userName, userDisplayName, userEmail, hashedPassword, userType]
-  );
+//   const hashedPassword = bcryptjs.hashSync(userPassword, 10);
+//   const query = await pool.query(
+//     "insert into users (user_name, user_display_name, user_email, user_password, user_type) values($1, $2, $3, $4, $5)",
+//     [userName, userDisplayName, userEmail, hashedPassword, userType]
+//   );
 
-  res.json(query);
-});
+//   res.json(query);
+// });
