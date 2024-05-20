@@ -23,6 +23,7 @@ const dashboardData = require("./routes/dashboard.route.js");
 app.use(
   cors({
     origin: process.env.API_URL,
+    credentials: true,
   })
 );
 app.use((req, res, next) => {
