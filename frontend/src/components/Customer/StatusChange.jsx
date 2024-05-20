@@ -26,7 +26,9 @@ const StatusChange = ({ currentStatus, customerId }) => {
       if (selectedStatus !== currentStatus) {
         try {
           const res = await fetch(
-            `/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/customer/changeStatus/${selectedStatus}&${customerId}&${userId}`,
             {
               method: "POST",
               headers: {

@@ -36,7 +36,9 @@ const EditCompany = ({ companyId, getCompanyData }) => {
   const getCurrentCompanyData = async () => {
     try {
       const res = await fetch(
-        `/api/company/getCurrentCompanyData/${companyId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/company/getCurrentCompanyData/${companyId}`,
         {
           method: "POST",
           headers: {
@@ -70,14 +72,19 @@ const EditCompany = ({ companyId, getCompanyData }) => {
     }
 
     try {
-      const res = await fetch(`/api/company/updateCompanyData/${companyId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(currentCompanyData),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/company/updateCompanyData/${companyId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(currentCompanyData),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 

@@ -63,14 +63,17 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
   useEffect(() => {
     const getCompanyData = async () => {
       try {
-        const res = await fetch("/api/company/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(),
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/company/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(),
+            credentials: "include",
+          }
+        );
         const data = await res.json();
 
         const companyName = data.message;
@@ -85,7 +88,9 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
   const getCurrentCustomerData = async () => {
     try {
       const res = await fetch(
-        `/api/customer/getCurrentCustomerData/${customerId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/customer/getCurrentCustomerData/${customerId}`,
         {
           method: "POST",
           headers: {
@@ -125,7 +130,9 @@ const EditCustomer = ({ customerId, getCustomerData }) => {
 
     try {
       const res = await fetch(
-        `/api/customer/updateCustomerData/${customerId}&${userId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/customer/updateCustomerData/${customerId}&${userId}`,
         {
           method: "POST",
           headers: {

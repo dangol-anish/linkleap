@@ -42,8 +42,14 @@ const login = async (req, res, next) => {
       },
       process.env.JWT
     );
+    const expiryDate = new Date();
+    expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
+
     res
-      .cookie("accessToken", accessToken, { httpOnly: true })
+      .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        expires: expiryDate,
+      })
       .status(200)
       .json({
         success: true,

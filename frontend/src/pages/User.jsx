@@ -26,7 +26,7 @@ const User = () => {
     const currentUserData = JSON.parse(localStorage.getItem("data"));
     const userId = currentUserData.id;
     try {
-      const res = await fetch("/api/user/", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

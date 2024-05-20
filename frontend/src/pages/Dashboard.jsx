@@ -26,13 +26,16 @@ const Dashboard = () => {
 
   const getDashboardData = async () => {
     try {
-      const res = await fetch("/api/dashboard/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/dashboard/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
 
       const responseData = await res.json();
       setData({ success: responseData.success });

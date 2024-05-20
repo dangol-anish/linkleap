@@ -7,10 +7,13 @@ const Public = () => {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const response = await fetch("/verifyUserToken", {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/verifyUserToken`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();

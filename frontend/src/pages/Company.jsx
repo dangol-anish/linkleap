@@ -23,7 +23,7 @@ const Company = () => {
 
   const getCompanyData = async () => {
     try {
-      const res = await fetch("/api/company/", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/company/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

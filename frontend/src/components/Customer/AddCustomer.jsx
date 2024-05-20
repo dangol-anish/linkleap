@@ -33,14 +33,17 @@ const AddCustomer = ({ getCustomerData }) => {
   useEffect(() => {
     const getCompanyData = async () => {
       try {
-        const res = await fetch("/api/company/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(),
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/company/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(),
+            credentials: "include",
+          }
+        );
         const data = await res.json();
 
         const companyName = data.message;
@@ -78,14 +81,17 @@ const AddCustomer = ({ getCustomerData }) => {
     }
 
     try {
-      const res = await fetch("/api/customer/addNewCustomer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(customerData),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/customer/addNewCustomer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(customerData),
+          credentials: "include",
+        }
+      );
       const data = await res.json();
 
       if (data.success === true) {

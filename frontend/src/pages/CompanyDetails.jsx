@@ -12,7 +12,9 @@ const CompanyDetails = () => {
     const getCurrentCompanyData = async () => {
       try {
         const res = await fetch(
-          `/api/company/getCurrentCompanyData/${companyId}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/company/getCurrentCompanyData/${companyId}`,
           {
             method: "POST",
             headers: {
@@ -39,7 +41,9 @@ const CompanyDetails = () => {
     const getCustomersInCompany = async () => {
       try {
         const res = await fetch(
-          `/api/company/customersInCompany/${companyId}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/company/customersInCompany/${companyId}`,
           {
             method: "POST",
             headers: {
