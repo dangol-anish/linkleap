@@ -1,11 +1,7 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  user: "postgres",
-  password: "0000",
-  database: "linkleap",
-  host: "localhost",
-  port: 5434,
+  connectionString: process.env.POSTGRES_URL,
 });
 
 module.exports = pool;
