@@ -20,7 +20,7 @@ const dashboardData = require("./routes/dashboard.route.js");
 // middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://linkleap-8i79-ljb5hyvdn-anish-dangols-projects.vercel.app",
     credentials: true,
   })
 );
