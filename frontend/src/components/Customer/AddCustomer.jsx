@@ -41,7 +41,6 @@ const AddCustomer = ({ getCustomerData }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(),
-            credentials: "include",
           }
         );
         const data = await res.json();
@@ -89,7 +88,6 @@ const AddCustomer = ({ getCustomerData }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(customerData),
-          credentials: "include",
         }
       );
       const data = await res.json();

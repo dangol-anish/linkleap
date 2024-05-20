@@ -11,7 +11,6 @@ const Public = () => {
           `${import.meta.env.VITE_API_URL}/verifyUserToken`,
           {
             method: "GET",
-            credentials: "include",
           }
         );
 

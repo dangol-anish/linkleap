@@ -44,7 +44,6 @@ const EditCompany = ({ companyId, getCompanyData }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          credentials: "include",
         }
       );
       const data = await res.json();
@@ -82,7 +81,6 @@ const EditCompany = ({ companyId, getCompanyData }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(currentCompanyData),
-          credentials: "include",
         }
       );
 
