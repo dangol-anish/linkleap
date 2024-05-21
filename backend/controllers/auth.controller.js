@@ -50,7 +50,6 @@ const login = async (req, res, next) => {
         httpOnly: true, // Ensures the cookie is sent only over HTTP(S), not accessible to JavaScript
         secure: true, // Ensures the cookie is sent only over HTTPS
         same_site: "None", // Allows cross-site cookies
-        domain: "vercel.app", // Or use your custom domain if you have one
         path: "/", // Ensures the cookie is sent for all paths
       })
       .status(200)
