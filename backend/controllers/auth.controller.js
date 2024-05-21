@@ -48,11 +48,8 @@ const login = async (req, res, next) => {
     res
       .cookie("accessToken", accessToken, {
         expires: expiryDate,
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-        path: "/",
-        domain: ".vercel.app",
+        httpOnly: false,
+        secure: false,
       })
       .status(200)
       .json({
