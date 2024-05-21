@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
       .cookie("accessToken", accessToken, {
         httpOnly: true, // Ensures the cookie is sent only over HTTP(S), not accessible to JavaScript
         secure: true, // Ensures the cookie is sent only over HTTPS
-        same_site: "None", // Allows cross-site cookies
+        sameSite: "None", // Allows cross-site cookies
         path: "/", // Ensures the cookie is sent for all paths
       })
       .status(200)
