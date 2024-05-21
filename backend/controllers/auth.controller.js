@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
       .cookie("accessToken", accessToken, {
         httpOnly: true, // Ensures the cookie is sent only over HTTP(S), not accessible to JavaScript
         secure: true, // Ensures the cookie is sent only over HTTPS
-        sameSite: "None", // Allows cross-site cookies
+        same_site: "None", // Allows cross-site cookies
         domain: "vercel.app", // Or use your custom domain if you have one
         path: "/", // Ensures the cookie is sent for all paths
       })
