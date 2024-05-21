@@ -12,6 +12,9 @@ import NotFound from "./pages/NotFound";
 import CustomerDetails from "./pages/CustomerDetails";
 
 function App() {
+  alert(
+    "If you didn't come here from my Github, the username and password are => superadmin"
+  );
   return (
     <>
       <BrowserRouter>
